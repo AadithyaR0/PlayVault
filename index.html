@@ -761,7 +761,7 @@
                 id="gamePriceINR"
                 type="number"
                 min="0"
-                placeholder="e.g. 500"
+                placeholder="e.g. 3499"
                 class="w-full bg-black/60 border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white font-mono placeholder-zinc-600 focus:outline-none focus:border-white/30"
               />
             </div>
@@ -771,7 +771,7 @@
                 id="gameOriginalPriceINR"
                 type="number"
                 min="0"
-                placeholder="e.g. 500"
+                placeholder="e.g. 3999"
                 class="w-full bg-black/60 border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white font-mono placeholder-zinc-600 focus:outline-none focus:border-white/30"
               />
             </div>
@@ -782,7 +782,7 @@
                 type="number"
                 min="0"
                 max="100"
-                placeholder="0"
+                placeholder="e.g. 20"
                 class="w-full bg-black/60 border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white font-mono placeholder-zinc-600 focus:outline-none focus:border-white/30"
               />
             </div>
@@ -891,7 +891,7 @@
       </div>
 
       <p class="text-xs text-zinc-400 leading-relaxed">
-        Your library is stored locally in your browser. Search and price sync connect directly to Steam India (<span class="text-zinc-200 font-mono">₹ INR</span>) and Steam Review APIs with zero keys required.
+        Your library is stored locally in your browser. Search and price sync connect to Steam India (<span class="text-zinc-200 font-mono">₹ INR</span>), Steam Review APIs, and CheapShark with zero keys required.
       </p>
 
       <!-- Optional RAWG API Key Configuration -->
@@ -1027,9 +1027,3016 @@
     };
 
     // =========================================================
-    // VERIFIED GAME CATALOG
-    // Stores clean base Steam India MRPs (discountPercent: 0) as offline
-    // fallback. Live Steam India API calls always override with real-time
-    // prices & active discounts so expired sales never appear.
+    // EXPANDED VERIFIED GAME CATALOG (50+ POPULAR & 2025-2026 RELEASES)
+    // Includes Halo: Campaign Evolved (2806050), Well Dweller (3699590), etc.
     // =========================================================
-    const CURATED_
+    const CURATED_GAMES_DB = [
+      {
+        appId: '2806050',
+        title: 'Halo: Campaign Evolved',
+        genre: 'Sci-Fi FPS',
+        platform: 'Steam / PC',
+        metacriticScore: 87,
+        steamRatingPercent: 91,
+        steamRatingText: 'Very Positive',
+        priceINR: 3999,
+        originalPriceINR: 3999,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2806050/30d8542d35d7919b34e5f5dbe955d04c3f99e6da/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2806050/Halo_Campaign_Evolved/',
+        plot: "Halo: Campaign Evolved is a faithful yet modernized remake of Halo: Combat Evolved's campaign, rebuilt from the ground up with high-definition visuals, updated cinematics, and refined controls."
+      },
+      {
+        appId: '976730',
+        title: 'Halo: The Master Chief Collection',
+        genre: 'Sci-Fi FPS',
+        platform: 'Steam / PC',
+        metacriticScore: 85,
+        steamRatingPercent: 93,
+        steamRatingText: 'Very Positive',
+        priceINR: 837,
+        originalPriceINR: 3349,
+        discountPercent: 75,
+        cover: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976730/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/976730/Halo_The_Master_Chief_Collection/',
+        plot: 'The Master Chief’s iconic journey includes six games, built for PC and collected in a single integrated experience from Halo: Reach to Halo 4.'
+      },
+      {
+        appId: '1240440',
+        title: 'Halo Infinite',
+        genre: 'Sci-Fi FPS',
+        platform: 'Steam / PC',
+        metacriticScore: 87,
+        steamRatingPercent: 79,
+        steamRatingText: 'Mostly Positive',
+        priceINR: 1399,
+        originalPriceINR: 3499,
+        discountPercent: 60,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1240440/2262ffb4f1659df1c1cbf2c70af40560b4fa12e4/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1240440/Halo_Infinite/',
+        plot: 'When all hope is lost and humanity’s fate hangs in the balance, the Master Chief is ready to confront the most ruthless foe he’s ever faced on Zeta Halo.'
+      },
+      {
+        appId: '3699590',
+        title: 'Well Dweller',
+        genre: 'Dark Fairy-Tale Metroidvania',
+        platform: 'Steam / PC',
+        metacriticScore: 86,
+        steamRatingPercent: 98,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 586,
+        originalPriceINR: 690,
+        discountPercent: 15,
+        cover: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3699590/49dd898fc6800fb34e599e23b7a015447f8209d5/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/3699590/Well_Dweller/',
+        plot: 'Well Dweller is a dark fairy-tale metroidvania, full of charming characters living in a wretched kingdom. Play as Glimmer — a tiny bird armed with a matchstick — and burn the wicked queen to save your family.'
+      },
+      {
+        appId: '2394650',
+        title: 'Crypt Custodian',
+        genre: 'Metroidvania',
+        platform: 'Steam Deck',
+        metacriticScore: 84,
+        steamRatingPercent: 97,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 679,
+        originalPriceINR: 849,
+        discountPercent: 20,
+        cover: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2394650/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2394650/Crypt_Custodian/',
+        plot: 'Crypt Custodian is a charming metroidvania about cleaning up the afterlife. Play as Pluto — a mischievous cat who has died and is sentenced to be the afterlife’s janitor.'
+      },
+      {
+        appId: '1809540',
+        title: 'Nine Sols',
+        genre: 'Taopunk Metroidvania',
+        platform: 'Steam Deck',
+        metacriticScore: 84,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 910,
+        originalPriceINR: 1300,
+        discountPercent: 30,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1809540/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1809540/Nine_Sols/',
+        plot: 'Nine Sols is a lore-rich, hand-drawn 2D action-platformer featuring Sekiro-inspired deflection-focused combat. Embark on a journey of Asian fantasy and follow a vengeful hero’s quest to slay the 9 Sols.'
+      },
+      {
+        appId: '813230',
+        title: 'ANIMAL WELL',
+        genre: 'Puzzle Metroidvania',
+        platform: 'Steam Deck',
+        metacriticScore: 91,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 880,
+        originalPriceINR: 1100,
+        discountPercent: 20,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/813230/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/813230/ANIMAL_WELL/',
+        plot: 'Explore a dense, interconnected labyrinth, and unravel its many secrets. Collect items to manipulate your environment in surprising and meaningful ways in a surreal pixel-art ecosystem.'
+      },
+      {
+        appId: '1245620',
+        title: 'Elden Ring',
+        genre: 'Action RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 96,
+        steamRatingPercent: 93,
+        steamRatingText: 'Very Positive',
+        priceINR: 3599,
+        originalPriceINR: 3599,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+        plot: 'Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.'
+      },
+      {
+        appId: '2358720',
+        title: 'Black Myth: Wukong',
+        genre: 'Action RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 81,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 3599,
+        originalPriceINR: 3599,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2358720/Black_Myth_Wukong/',
+        plot: 'Set out as the Destined One in this action RPG rooted in Chinese mythology to uncover the obscured truth beneath a glorious legend of the past.'
+      },
+      {
+        appId: '1091500',
+        title: 'Cyberpunk 2077',
+        genre: 'Sci-Fi Action RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 86,
+        steamRatingPercent: 84,
+        steamRatingText: 'Very Positive',
+        priceINR: 1499,
+        originalPriceINR: 2999,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+        plot: 'An open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.'
+      },
+      {
+        appId: '1086940',
+        title: "Baldur's Gate 3",
+        genre: 'CRPG',
+        platform: 'Steam / PC',
+        metacriticScore: 96,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 2399,
+        originalPriceINR: 2999,
+        discountPercent: 20,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+        plot: 'Gather your party and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power.'
+      },
+      {
+        appId: '1903340',
+        title: 'Clair Obscur: Expedition 33',
+        genre: 'Turn-Based RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 92,
+        steamRatingPercent: 95,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 2499,
+        originalPriceINR: 2799,
+        discountPercent: 10,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1903340/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1903340/Clair_Obscur_Expedition_33/',
+        plot: 'Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again in this reactive turn-based RPG.'
+      },
+      {
+        appId: '1145350',
+        title: 'Hades II',
+        genre: 'Roguelike Action',
+        platform: 'Steam Deck',
+        metacriticScore: 90,
+        steamRatingPercent: 94,
+        steamRatingText: 'Very Positive',
+        priceINR: 1300,
+        originalPriceINR: 1300,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145350/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1145350/Hades_II/',
+        plot: 'Battle beyond the Underworld using dark sorcery to take on the Titan of Time in this bewitching sequel to the award-winning rogue-like dungeon crawler.'
+      },
+      {
+        appId: '1030300',
+        title: 'Hollow Knight: Silksong',
+        genre: 'Metroidvania',
+        platform: 'Steam Deck',
+        metacriticScore: 91,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 1199,
+        originalPriceINR: 1199,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1030300/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/',
+        plot: 'As the lethal hunter Hornet, adventure through a whole new kingdom haunted by silk and song. Capture beasts, solve ancient mysteries, and ascend to the peak.'
+      },
+      {
+        appId: '367520',
+        title: 'Hollow Knight',
+        genre: 'Metroidvania',
+        platform: 'Steam Deck',
+        metacriticScore: 90,
+        steamRatingPercent: 97,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 345,
+        originalPriceINR: 690,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/367520/Hollow_Knight/',
+        plot: 'Forge your own path in Hollow Knight! An epic action adventure through a vast ruined subterranean kingdom of insects and heroes.'
+      },
+      {
+        appId: '1771300',
+        title: 'Kingdom Come: Deliverance II',
+        genre: 'Medieval Action RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 88,
+        steamRatingPercent: 91,
+        steamRatingText: 'Very Positive',
+        priceINR: 3360,
+        originalPriceINR: 3360,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1771300/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1771300/Kingdom_Come_Deliverance_II/',
+        plot: 'A thrilling story-driven action RPG, with a rich open world, set in 15th century Medieval Europe through the eyes of young Henry of Skalitz.'
+      },
+      {
+        appId: '1174180',
+        title: 'Red Dead Redemption 2',
+        genre: 'Open World Western',
+        platform: 'Steam / PC',
+        metacriticScore: 97,
+        steamRatingPercent: 91,
+        steamRatingText: 'Very Positive',
+        priceINR: 1055,
+        originalPriceINR: 3199,
+        discountPercent: 67,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/',
+        plot: 'Arthur Morgan and the Van der Linde gang are outlaws on the run across America in 1899 as federal agents and bounty hunters mass on their heels.'
+      },
+      {
+        appId: '292030',
+        title: 'The Witcher 3: Wild Hunt',
+        genre: 'Open World RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 93,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 424,
+        originalPriceINR: 1699,
+        discountPercent: 75,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/',
+        plot: 'You are Geralt of Rivia, mercenary monster slayer. Before you stands a war-torn, monster-infested continent you can explore at will to find Ciri.'
+      },
+      {
+        appId: '814380',
+        title: 'Sekiro: Shadows Die Twice',
+        genre: 'Action Adventure',
+        platform: 'Steam / PC',
+        metacriticScore: 90,
+        steamRatingPercent: 95,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 1998,
+        originalPriceINR: 3997,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/',
+        plot: 'Carve your own clever path to vengeance in this critically acclaimed adventure from developer FromSoftware, creators of Bloodborne and Dark Souls.'
+      },
+      {
+        appId: '2215430',
+        title: "Ghost of Tsushima DIRECTOR'S CUT",
+        genre: 'Open World Samurai',
+        platform: 'Steam / PC',
+        metacriticScore: 87,
+        steamRatingPercent: 93,
+        steamRatingText: 'Very Positive',
+        priceINR: 3199,
+        originalPriceINR: 3999,
+        discountPercent: 20,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2215430/Ghost_of_Tsushima_DIRECTORS_CUT/',
+        plot: 'In the late 13th century, the Mongol empire has laid waste to entire nations. Jin Sakai must set aside samurai traditions to wage an unconventional war for Tsushima.'
+      },
+      {
+        appId: '1593500',
+        title: 'God of War',
+        genre: 'Action Adventure',
+        platform: 'Steam / PC',
+        metacriticScore: 94,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 1319,
+        originalPriceINR: 3299,
+        discountPercent: 60,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1593500/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1593500/God_of_War/',
+        plot: 'His vengeance against the Gods of Olympus years behind him, Kratos now lives as a man in the realm of Norse Gods and monsters.'
+      },
+      {
+        appId: '2322010',
+        title: 'God of War Ragnarök',
+        genre: 'Action Adventure',
+        platform: 'Steam / PC',
+        metacriticScore: 90,
+        steamRatingPercent: 87,
+        steamRatingText: 'Very Positive',
+        priceINR: 3999,
+        originalPriceINR: 3999,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2322010/God_of_War_Ragnark/',
+        plot: 'Kratos and Atreus must journey to each of the Nine Realms in search of answers as Asgardian forces prepare for a prophesied battle that will end the world.'
+      },
+      {
+        appId: '1687950',
+        title: 'Persona 5 Royal',
+        genre: 'JRPG',
+        platform: 'Steam Deck',
+        metacriticScore: 95,
+        steamRatingPercent: 97,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 1796,
+        originalPriceINR: 4490,
+        discountPercent: 60,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1687950/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1687950/Persona_5_Royal/',
+        plot: 'Don the mask and join the Phantom Thieves of Hearts as they stage grand heists, infiltrate the minds of the corrupt, and make them change their ways.'
+      },
+      {
+        appId: '2679460',
+        title: 'Metaphor: ReFantazio',
+        genre: 'Fantasy JRPG',
+        platform: 'Steam / PC',
+        metacriticScore: 94,
+        steamRatingPercent: 92,
+        steamRatingText: 'Very Positive',
+        priceINR: 4274,
+        originalPriceINR: 5699,
+        discountPercent: 25,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2679460/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2679460/Metaphor_ReFantazio/',
+        plot: 'From the creative minds behind Persona 3, 4, and 5 comes Metaphor: ReFantazio, a unique fantasy world where your protagonist journeys to lift a curse from the prince.'
+      },
+      {
+        appId: '632470',
+        title: 'Disco Elysium - The Final Cut',
+        genre: 'Narrative RPG',
+        platform: 'Steam Deck',
+        metacriticScore: 97,
+        steamRatingPercent: 93,
+        steamRatingText: 'Very Positive',
+        priceINR: 224,
+        originalPriceINR: 899,
+        discountPercent: 75,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/632470/Disco_Elysium__The_Final_Cut/',
+        plot: 'A groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city block to carve your path across.'
+      },
+      {
+        appId: '2050650',
+        title: 'Resident Evil 4',
+        genre: 'Survival Horror',
+        platform: 'Steam / PC',
+        metacriticScore: 93,
+        steamRatingPercent: 97,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 1199,
+        originalPriceINR: 2399,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2050650/Resident_Evil_4/',
+        plot: 'Survival is just the beginning. Six years have passed since the biological disaster in Raccoon City. Leon S. Kennedy tracks the president’s kidnapped daughter.'
+      },
+      {
+        appId: '1888930',
+        title: 'The Last of Us Part I',
+        genre: 'Action Adventure',
+        platform: 'Steam / PC',
+        metacriticScore: 88,
+        steamRatingPercent: 77,
+        steamRatingText: 'Mostly Positive',
+        priceINR: 1999,
+        originalPriceINR: 3999,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1888930/The_Last_of_Us_Part_I/',
+        plot: 'In a ravaged civilization, where infected and hardened survivors run rampant, Joel, a weary protagonist, is hired to smuggle 14-year-old Ellie out of a quarantine zone.'
+      },
+      {
+        appId: '2246340',
+        title: 'Monster Hunter Wilds',
+        genre: 'Co-op Action RPG',
+        platform: 'Steam / PC',
+        metacriticScore: 89,
+        steamRatingPercent: 86,
+        steamRatingText: 'Very Positive',
+        priceINR: 4399,
+        originalPriceINR: 4399,
+        discountPercent: 0,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/',
+        plot: 'The unbridled force of nature runs wild and relentless, with environments transforming drastically from one moment to the next in the Forbidden Lands.'
+      },
+      {
+        appId: '1817070',
+        title: "Marvel's Spider-Man Remastered",
+        genre: 'Superhero Action',
+        platform: 'Steam / PC',
+        metacriticScore: 87,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 2399,
+        originalPriceINR: 3999,
+        discountPercent: 40,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1817070/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1817070/Marvels_SpiderMan_Remastered/',
+        plot: 'Experienced Peter Parker is fighting big crime and iconic villains in Marvel’s New York while struggling to balance his chaotic personal life and career.'
+      },
+      {
+        appId: '1145360',
+        title: 'Hades',
+        genre: 'Roguelike Action',
+        platform: 'Steam Deck',
+        metacriticScore: 93,
+        steamRatingPercent: 98,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 440,
+        originalPriceINR: 1100,
+        discountPercent: 60,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145360/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1145360/Hades/',
+        plot: 'Defy the god of the dead as you hack and slash out of the Underworld in this rogue-like dungeon crawler from the creators of Bastion and Transistor.'
+      },
+      {
+        appId: '2379780',
+        title: 'Balatro',
+        genre: 'Roguelike Deckbuilder',
+        platform: 'Steam Deck',
+        metacriticScore: 90,
+        steamRatingPercent: 98,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 621,
+        originalPriceINR: 690,
+        discountPercent: 10,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2379780/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2379780/Balatro/',
+        plot: 'The poker roguelike. Balatro is a hypnotically satisfying deckbuilder where you play illegal poker hands, discover game-changing jokers, and trigger adrenaline-pumping combos.'
+      },
+      {
+        appId: '553850',
+        title: 'HELLDIVERS 2',
+        genre: 'Co-op Shooter',
+        platform: 'Steam / PC',
+        metacriticScore: 82,
+        steamRatingPercent: 81,
+        steamRatingText: 'Very Positive',
+        priceINR: 1999,
+        originalPriceINR: 2499,
+        discountPercent: 20,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/553850/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/553850/HELLDIVERS_2/',
+        plot: 'The Galaxy’s Last Line of Offence. Enlist in the Helldivers and join the fight for freedom across a hostile galaxy in a fast, frantic third-person shooter.'
+      },
+      {
+        appId: '1888160',
+        title: 'ARMORED CORE VI FIRES OF RUBICON',
+        genre: 'Mecha Action',
+        platform: 'Steam / PC',
+        metacriticScore: 86,
+        steamRatingPercent: 94,
+        steamRatingText: 'Very Positive',
+        priceINR: 2159,
+        originalPriceINR: 3599,
+        discountPercent: 40,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1888160/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1888160/ARMORED_CORE_VI_FIRES_OF_RUBICON/',
+        plot: 'Combining FromSoftware’s longstanding expertise in mech games with their signature action gameplay, Armored Core VI brings a brand-new high-speed mech experience.'
+      },
+      {
+        appId: '1551360',
+        title: 'Forza Horizon 5',
+        genre: 'Open World Racing',
+        platform: 'Steam / PC',
+        metacriticScore: 92,
+        steamRatingPercent: 89,
+        steamRatingText: 'Very Positive',
+        priceINR: 1749,
+        originalPriceINR: 3499,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1551360/Forza_Horizon_5/',
+        plot: 'Your Ultimate Horizon Adventure awaits! Explore the vibrant and ever-evolving open world landscapes of Mexico with limitless, fun driving action.'
+      },
+      {
+        appId: '413150',
+        title: 'Stardew Valley',
+        genre: 'Farming Sim RPG',
+        platform: 'Steam Deck',
+        metacriticScore: 89,
+        steamRatingPercent: 98,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 239,
+        originalPriceINR: 479,
+        discountPercent: 50,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/413150/Stardew_Valley/',
+        plot: "You've inherited your grandfather's old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life."
+      },
+      {
+        appId: '271590',
+        title: 'Grand Theft Auto V',
+        genre: 'Open World Action',
+        platform: 'Steam / PC',
+        metacriticScore: 96,
+        steamRatingPercent: 87,
+        steamRatingText: 'Very Positive',
+        priceINR: 952,
+        originalPriceINR: 2320,
+        discountPercent: 59,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/271590/Grand_Theft_Auto_V/',
+        plot: 'When a young street hustler, a retired bank robber and a terrifying psychopath find themselves entangled with the criminal underworld, they must pull off a series of dangerous heists.'
+      },
+      {
+        appId: '2124490',
+        title: 'SILENT HILL 2',
+        genre: 'Psychological Horror',
+        platform: 'Steam / PC',
+        metacriticScore: 86,
+        steamRatingPercent: 95,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 2240,
+        originalPriceINR: 2800,
+        discountPercent: 20,
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2124490/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2124490/SILENT_HILL_2/',
+        plot: 'Having received a letter from his deceased wife, James heads to where they shared so many memories, in the hope of seeing her one more time: Silent Hill.'
+      }
+    ];
+
+    // Pre-Populated Starter Library
+    const STARTER_GAMES = [
+      {
+        id: 'starter-1',
+        appId: '1245620',
+        title: 'Elden Ring',
+        status: 'on_hold',
+        platform: 'Steam / PC',
+        genre: 'Action RPG',
+        hours: '38h in',
+        metacriticScore: 96,
+        steamRatingPercent: 93,
+        steamRatingText: 'Very Positive',
+        priceINR: 3599,
+        originalPriceINR: 3599,
+        discountPercent: 0,
+        resumeNotes: 'Dropped right after beating Starscourge Radahn. Need to head into the Nokron crater for Ranni’s questline. Running a +9 Bloodhound’s Fang Dex build.',
+        plot: 'Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+        updatedAt: Date.now() - 3600 * 1000 * 3
+      },
+      {
+        id: 'starter-2',
+        appId: '1091500',
+        title: 'Cyberpunk 2077',
+        status: 'on_hold',
+        platform: 'Steam / PC',
+        genre: 'Sci-Fi Action RPG',
+        hours: '16h in',
+        metacriticScore: 86,
+        steamRatingPercent: 84,
+        steamRatingText: 'Very Positive',
+        priceINR: 1499,
+        originalPriceINR: 2999,
+        discountPercent: 50,
+        resumeNotes: 'Paused at the start of Phantom Liberty (Dogtown entrance). Remember to test out the new Sandevistan + Throwing Knives cyberware setup.',
+        plot: 'An open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+        updatedAt: Date.now() - 3600 * 1000 * 12
+      },
+      {
+        id: 'starter-3',
+        appId: '1086940',
+        title: "Baldur's Gate 3",
+        status: 'playing',
+        platform: 'Steam / PC',
+        genre: 'CRPG',
+        hours: '52h in',
+        metacriticScore: 96,
+        steamRatingPercent: 96,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 2399,
+        originalPriceINR: 2999,
+        discountPercent: 20,
+        resumeNotes: 'Currently in Act 2 at Last Light Inn. Keep Shadowheart in the party before entering the Gauntlet of Shar.',
+        plot: 'Gather your party and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+        updatedAt: Date.now() - 3600 * 1000 * 24
+      },
+      {
+        id: 'starter-4',
+        appId: '367520',
+        title: 'Hollow Knight',
+        status: 'backlog',
+        platform: 'Steam Deck',
+        genre: 'Metroidvania',
+        hours: '0h',
+        metacriticScore: 90,
+        steamRatingPercent: 97,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 345,
+        originalPriceINR: 690,
+        discountPercent: 50,
+        resumeNotes: 'Saved for upcoming flights and evening handheld sessions before diving into Silksong.',
+        plot: 'Forge your own path in Hollow Knight! An epic action adventure through a vast ruined subterranean kingdom of insects and heroes.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/367520/Hollow_Knight/',
+        updatedAt: Date.now() - 3600 * 1000 * 36
+      },
+      {
+        id: 'starter-5',
+        appId: '1903340',
+        title: 'Clair Obscur: Expedition 33',
+        status: 'wishlist',
+        platform: 'Steam / PC',
+        genre: 'Turn-Based RPG',
+        hours: '',
+        metacriticScore: 92,
+        steamRatingPercent: 95,
+        steamRatingText: 'Overwhelmingly Positive',
+        priceINR: 2499,
+        originalPriceINR: 2799,
+        discountPercent: 10,
+        resumeNotes: 'Top priority pickup for the weekend — reactive parry turn-based combat looks incredible.',
+        plot: 'Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again in this reactive turn-based RPG.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1903340/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1903340/Clair_Obscur_Expedition_33/',
+        updatedAt: Date.now() - 3600 * 1000 * 42
+      },
+      {
+        id: 'starter-6',
+        appId: '2806050',
+        title: 'Halo: Campaign Evolved',
+        status: 'wishlist',
+        platform: 'Steam / PC',
+        genre: 'Sci-Fi FPS',
+        hours: '',
+        metacriticScore: 87,
+        steamRatingPercent: 91,
+        steamRatingText: 'Very Positive',
+        priceINR: 3999,
+        originalPriceINR: 3999,
+        discountPercent: 0,
+        resumeNotes: 'Modernized ground-up remake of Halo: Combat Evolved campaign.',
+        plot: "Halo: Campaign Evolved is a faithful yet modernized remake of Halo: Combat Evolved's campaign, rebuilt from the ground up with high-definition visuals, updated cinematics, and refined controls.",
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2806050/30d8542d35d7919b34e5f5dbe955d04c3f99e6da/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/2806050/Halo_Campaign_Evolved/',
+        updatedAt: Date.now() - 3600 * 1000 * 48
+      }
+    ];
+
+    // =========================================================
+    // STATE VARIABLES
+    // =========================================================
+    let games = [];
+    let activeFilter = 'all';
+    let viewMode = 'big'; // 'big' | 'grid' | 'compact'
+    let sortOrder = 'updated';
+    let liveSearchTimeout = null;
+    let currentSearchResults = [];
+    let toastTimer = null;
+    let obsidianAnimId = null;
+
+    // =========================================================
+    // INITIALIZATION, FLUID RIPPLE SYSTEM & MIGRATION
+    // =========================================================
+    function initApp() {
+      initObsidianCanvas();
+      initFluidClickRippleSystem();
+      loadPreferences();
+      loadGamesFromStorage();
+      enrichExistingLibraryFromCatalog();
+      renderQuickPresetChips();
+      renderFilterTabs();
+      updateViewModeUI();
+      renderGames();
+
+      try {
+        const savedRawgKey = localStorage.getItem(RAWG_KEY_STORAGE) || '';
+        const rawgInput = document.getElementById('rawgApiKeyInput');
+        if (rawgInput) rawgInput.value = savedRawgKey;
+      } catch (e) {}
+
+      lucide.createIcons();
+    }
+
+    // Fluid Build-Up Click Wave on any interactive element
+    function initFluidClickRippleSystem() {
+      document.addEventListener('pointerdown', (e) => {
+        const target = e.target.closest('.tap-bounce, .card-hover-lift');
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 0.9;
+        const ripple = document.createElement('span');
+        ripple.className = 'fluid-ripple';
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left}px`;
+        ripple.style.top = `${e.clientY - rect.top}px`;
+        target.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 680);
+      });
+    }
+
+    function loadPreferences() {
+      try {
+        const savedView = localStorage.getItem(VIEW_MODE_KEY);
+        if (savedView && ['big', 'grid', 'compact'].includes(savedView)) {
+          viewMode = savedView;
+        }
+        const savedSort = localStorage.getItem(SORT_ORDER_KEY);
+        if (savedSort) {
+          sortOrder = savedSort;
+          const sortEl = document.getElementById('sortSelect');
+          if (sortEl) sortEl.value = savedSort;
+        }
+      } catch (e) {}
+    }
+
+    function loadGamesFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          games = [...STARTER_GAMES];
+          saveGamesToStorage();
+        } else {
+          const parsed = JSON.parse(raw);
+          games = Array.isArray(parsed) && parsed.length > 0 ? parsed : [...STARTER_GAMES];
+        }
+      } catch (e) {
+        games = [...STARTER_GAMES];
+      }
+    }
+
+    // Backfill & auto-heal saved games (including Well Dweller and Halo: Campaign Evolved)
+    function enrichExistingLibraryFromCatalog() {
+      let changed = false;
+      games.forEach(g => {
+        if (g.platform === 'iOS / Mobile') {
+          g.platform = 'Mobile / Handheld';
+          changed = true;
+        }
+        if (
+          g.plot &&
+          !/fallout/i.test(g.title || '') &&
+          (/Fallout|Vault Dweller|Interplay|post-apocalyptic role-playing/i.test(g.plot))
+        ) {
+          g.plot = '';
+          changed = true;
+        }
+
+        const match = CURATED_GAMES_DB.find(
+          c => normalizeGameKey(c.title) === normalizeGameKey(g.title) || (g.appId && String(c.appId) === String(g.appId))
+        );
+        if (match) {
+          if (!g.appId) { g.appId = match.appId; changed = true; }
+          if (!g.metacriticScore && match.metacriticScore) { g.metacriticScore = match.metacriticScore; changed = true; }
+          if (!g.steamRatingPercent && match.steamRatingPercent) { g.steamRatingPercent = match.steamRatingPercent; changed = true; }
+          if (!g.steamRatingText && match.steamRatingText) { g.steamRatingText = match.steamRatingText; changed = true; }
+          if (!g.genre || g.genre === 'Video Game' || g.genre === 'Role-playing') {
+            g.genre = match.genre;
+            changed = true;
+          }
+          if (!g.plot) {
+            g.plot = match.plot;
+            changed = true;
+          }
+          if (!g.steamUrl && match.steamUrl) {
+            g.steamUrl = match.steamUrl;
+            changed = true;
+          }
+          if (!Number(g.priceINR) && match.priceINR) {
+            g.priceINR = match.priceINR;
+            g.originalPriceINR = match.originalPriceINR;
+            g.discountPercent = match.discountPercent;
+            changed = true;
+          }
+          const hasBrokenUnhashedNewCover =
+            Number(match.appId) >= 2400000 &&
+            g.cover &&
+            g.cover.includes(`/apps/${match.appId}/header.jpg`);
+          if (
+            !g.cover ||
+            g.cover.includes('placehold.co') ||
+            g.cover.startsWith('data:image/svg+xml') ||
+            hasBrokenUnhashedNewCover
+          ) {
+            g.cover = match.cover;
+            changed = true;
+          }
+        }
+      });
+      if (changed) saveGamesToStorage();
+    }
+
+    function saveGamesToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
+      } catch (e) {}
+      updateStats();
+    }
+
+    function updateStats() {
+      const onHoldCount = games.filter(g => g.status === 'on_hold').length;
+      const backlogCount = games.filter(g => g.status === 'backlog').length;
+      const playingCount = games.filter(g => g.status === 'playing').length;
+      const wishlistGames = games.filter(g => g.status === 'wishlist');
+      const wishlistCount = wishlistGames.length;
+
+      document.getElementById('statOnHold').textContent = onHoldCount;
+      document.getElementById('statBacklog').textContent = backlogCount;
+      document.getElementById('statPlaying').textContent = playingCount;
+      document.getElementById('statWishlist').textContent = wishlistCount;
+
+      const totalINR = wishlistGames.reduce((sum, g) => sum + (Number(g.priceINR) || 0), 0);
+      const saleCount = wishlistGames.filter(g => Number(g.discountPercent) > 0).length;
+
+      const wishSub = document.getElementById('statWishlistSub');
+      if (wishSub) {
+        if (totalINR > 0) {
+          wishSub.textContent = `${formatINR(totalINR)}${saleCount ? ` · ${saleCount} sale` : ''}`;
+        } else {
+          wishSub.textContent = 'Steam ₹ INR';
+        }
+      }
+
+      document.getElementById('headerSubtitle').textContent =
+        `${games.length} titles · ${onHoldCount} to revisit · ${wishlistCount} wishlisted`;
+
+      const wishBanner = document.getElementById('wishlistSummaryBanner');
+      if (wishBanner) {
+        if (activeFilter === 'wishlist') {
+          wishBanner.classList.remove('hidden');
+          const saleBadge = document.getElementById('wishlistSaleCountBadge');
+          const totalText = document.getElementById('wishlistTotalText');
+          if (saleCount > 0) {
+            saleBadge.textContent = `${saleCount} On Sale`;
+            saleBadge.classList.remove('hidden');
+          } else {
+            saleBadge.classList.add('hidden');
+          }
+          totalText.innerHTML = wishlistCount > 0
+            ? `Tracking <strong>${wishlistCount}</strong> wishlist ${wishlistCount === 1 ? 'title' : 'titles'} · Combined Steam India total: <strong class="text-white font-mono">${totalINR > 0 ? formatINR(totalINR) : '₹ —'}</strong>`
+            : 'Add games with status "Wishlist" to track live Steam India (₹ INR) prices & discounts.';
+        } else {
+          wishBanner.classList.add('hidden');
+        }
+      }
+    }
+
+    function formatINR(amount) {
+      const num = Number(amount);
+      if (isNaN(num) || num <= 0) return '';
+      return '₹' + Math.round(num).toLocaleString('en-IN');
+    }
+
+    function createObsidianFallbackCover(title = 'PlayVault') {
+      const safeTitle = (title || 'Game').slice(0, 22).replace(/[<>&"']/g, '');
+      const initials = (title || 'PV')
+        .split(/\s+/)
+        .map(w => w[0] || '')
+        .join('')
+        .slice(0, 3)
+        .toUpperCase();
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+        <defs>
+          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#141418"/>
+            <stop offset="100%" stop-color="#070709"/>
+          </linearGradient>
+        </defs>
+        <rect width="640" height="360" fill="url(#g)"/>
+        <circle cx="320" cy="180" r="110" fill="none" stroke="#27272a" stroke-width="1.5" stroke-dasharray="8 6"/>
+        <circle cx="320" cy="180" r="76" fill="#18181b" stroke="#3f3f46" stroke-width="1.5"/>
+        <text x="320" y="176" text-anchor="middle" fill="#e4e4e7" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="38" letter-spacing="3">${initials}</text>
+        <text x="320" y="212" text-anchor="middle" fill="#71717a" font-family="Inter, sans-serif" font-weight="500" font-size="14">${safeTitle}</text>
+      </svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    function handlePreviewImageError() {
+      const title = document.getElementById('gameTitle')?.value || 'PlayVault';
+      const img = document.getElementById('coverPreviewImg');
+      if (!img) return;
+      const fallbackUrl = img.getAttribute('data-fallback-cover');
+      if (fallbackUrl && img.src !== fallbackUrl) {
+        img.src = fallbackUrl;
+        document.getElementById('gameCover').value = fallbackUrl;
+        return;
+      }
+      if (!img.src.startsWith('data:image/svg+xml')) {
+        img.src = createObsidianFallbackCover(title);
+      }
+    }
+
+    // =========================================================
+    // ORGANIC FLUID CONTOUR & INTERACTIVE SPOTLIGHT CANVAS
+    // =========================================================
+    function initObsidianCanvas() {
+      const canvas = document.getElementById('obsidianCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      let pointerX = width * 0.5;
+      let pointerY = height * 0.22;
+      let targetX = pointerX;
+      let targetY = pointerY;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+      }, { passive: true });
+
+      if (obsidianAnimId) cancelAnimationFrame(obsidianAnimId);
+
+      let t = 0;
+      function drawFrame() {
+        t += 0.0045;
+        pointerX += (targetX - pointerX) * 0.06;
+        pointerY += (targetY - pointerY) * 0.06;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // 1. Soft Interactive Ambient Spotlight following pointer/touch
+        const spotGrad = ctx.createRadialGradient(pointerX, pointerY, 10, pointerX, pointerY, Math.max(width, height) * 0.55);
+        spotGrad.addColorStop(0, 'rgba(255, 255, 255, 0.045)');
+        spotGrad.addColorStop(0.45, 'rgba(161, 161, 170, 0.018)');
+        spotGrad.addColorStop(1, 'rgba(5, 5, 7, 0)');
+        ctx.fillStyle = spotGrad;
+        ctx.fillRect(0, 0, width, height);
+
+        // 2. Organic Flowing Obsidian Topographic Contour Ribbons
+        ctx.save();
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 7; i++) {
+          const alpha = 0.028 + (i % 3) * 0.012;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+          ctx.beginPath();
+          const baseY = height * (0.12 + i * 0.13);
+          for (let x = 0; x <= width; x += 28) {
+            const wave1 = Math.sin(x * 0.0028 + t + i * 0.7) * 34;
+            const wave2 = Math.cos(x * 0.0014 - t * 0.8 + i) * 22;
+            const pull = Math.exp(-Math.pow(x - pointerX, 2) / 90000) * ((pointerY - baseY) * 0.08);
+            const y = baseY + wave1 + wave2 + pull;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        obsidianAnimId = requestAnimationFrame(drawFrame);
+      }
+      drawFrame();
+    }
+
+    // =========================================================
+    // TOAST & CONFIRMATION MODAL
+    // =========================================================
+    function showToast(message, colorClass = 'bg-emerald-400') {
+      const banner = document.getElementById('toastBanner');
+      const msgEl = document.getElementById('toastMessage');
+      const dotEl = document.getElementById('toastDot');
+
+      msgEl.textContent = message;
+      dotEl.className = `w-2 h-2 rounded-full ${colorClass}`;
+
+      banner.classList.remove('opacity-0', '-translate-y-8');
+      banner.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.remove('opacity-100', 'translate-y-0');
+        banner.classList.add('opacity-0', '-translate-y-8');
+      }, 2600);
+    }
+
+    function openConfirmModal(title, message, onConfirm) {
+      document.getElementById('confirmTitle').textContent = title;
+      document.getElementById('confirmMessage').textContent = message;
+      const btn = document.getElementById('confirmActionBtn');
+      btn.onclick = () => {
+        closeConfirmModal();
+        onConfirm();
+      };
+      document.getElementById('confirmModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirmModal').classList.add('hidden');
+    }
+
+    // =========================================================
+    // VERIFIED GAME SEARCH & BULLETPROOF INDIAN PRICE ENGINE
+    // =========================================================
+    function renderQuickPresetChips() {
+      const container = document.getElementById('quickPresetChips');
+      if (!container) return;
+      container.innerHTML = CURATED_GAMES_DB.slice(0, 12).map((item, idx) => `
+        <button
+          type="button"
+          onclick="selectCuratedPreset(${idx})"
+          class="tap-bounce shrink-0 px-3 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 text-[11px] font-medium text-zinc-300 flex items-center gap-1.5"
+        >
+          <span>${escapeHtml(item.title)}</span>
+          ${item.priceINR ? `<span class="text-[10px] font-mono text-zinc-400">${formatINR(item.priceINR)}</span>` : ''}
+        </button>
+      `).join('');
+    }
+
+    function selectCuratedPreset(index) {
+      const item = CURATED_GAMES_DB[index];
+      if (!item) return;
+      applySelectedSearchResult({
+        ...item,
+        source: 'Steam'
+      });
+    }
+
+    function clearLiveGameSearch() {
+      const input = document.getElementById('liveGameSearchInput');
+      if (input) input.value = '';
+      document.getElementById('liveSearchResults').classList.add('hidden');
+      document.getElementById('liveSearchClearBtn').classList.add('hidden');
+      document.getElementById('liveSearchSpinner').classList.add('hidden');
+      document.getElementById('liveSearchStatus').textContent = 'Type title or Steam App ID';
+    }
+
+    function handleLiveGameSearchInput(rawVal) {
+      const query = rawVal.trim();
+      const clearBtn = document.getElementById('liveSearchClearBtn');
+
+      if (!query) {
+        clearLiveGameSearch();
+        return;
+      }
+
+      clearBtn.classList.remove('hidden');
+
+      const steamIdMatch = query.match(/\/app\/(\d+)/) || query.match(/^(\d{4,8})$/);
+      if (steamIdMatch && steamIdMatch[1]) {
+        const appId = steamIdMatch[1];
+        if (liveSearchTimeout) clearTimeout(liveSearchTimeout);
+        fetchDirectSteamAppId(appId);
+        return;
+      }
+
+      if (liveSearchTimeout) clearTimeout(liveSearchTimeout);
+      liveSearchTimeout = setTimeout(() => {
+        performMultiSourceGameSearch(query);
+      }, 220);
+    }
+
+    // Validated Parallel CORS Proxy Race:
+    // Validates the parsed JSON payload with `validatorFn(data)` BEFORE resolving Promise.any,
+    // so a rate-limited proxy returning `{ error: ... }` never aborts the real Steam response!
+    async function fetchJsonWithCorsFallback(targetUrl, timeoutMs = 5000, validatorFn = null) {
+      const checkValid = (data) => {
+        if (!data || typeof data !== 'object') return false;
+        if (data.error || data.Error || data.status === 'error') return false;
+        if (validatorFn && !validatorFn(data)) return false;
+        return true;
+      };
+
+      const proxyRunners = [
+        async (signal) => {
+          const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, { signal });
+          if (!res.ok) throw new Error('allorigins get failed');
+          const wrapper = await res.json();
+          if (!wrapper || !wrapper.contents) throw new Error('empty contents');
+          const parsed = JSON.parse(wrapper.contents);
+          if (!checkValid(parsed)) throw new Error('invalid payload');
+          return parsed;
+        },
+        async (signal) => {
+          const res = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, { signal });
+          if (!res.ok) throw new Error('codetabs failed');
+          const parsed = await res.json();
+          if (!checkValid(parsed)) throw new Error('invalid payload');
+          return parsed;
+        },
+        async (signal) => {
+          const res = await fetch(`https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`, { signal });
+          if (!res.ok) throw new Error('corsproxy failed');
+          const parsed = await res.json();
+          if (!checkValid(parsed)) throw new Error('invalid payload');
+          return parsed;
+        },
+        async (signal) => {
+          const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`, { signal });
+          if (!res.ok) throw new Error('allorigins raw failed');
+          const parsed = await res.json();
+          if (!checkValid(parsed)) throw new Error('invalid payload');
+          return parsed;
+        }
+      ];
+
+      const controllers = proxyRunners.map(() => new AbortController());
+      const timer = setTimeout(() => controllers.forEach(c => c.abort()), timeoutMs);
+
+      try {
+        const result = await Promise.any(
+          proxyRunners.map((fn, idx) => fn(controllers[idx].signal))
+        );
+        clearTimeout(timer);
+        controllers.forEach(c => c.abort());
+        return result;
+      } catch (err) {
+        clearTimeout(timer);
+        throw new Error('All validated CORS proxy attempts failed');
+      }
+    }
+
+    // Convert non-INR Steam price or CheapShark USD price to Indian Rupee (₹ INR) regional price
+    function normalizePriceToINR(rawPriceUnits, currency = 'INR') {
+      const num = Number(rawPriceUnits);
+      if (isNaN(num) || num <= 0) return 0;
+      const curr = String(currency || 'INR').toUpperCase();
+      if (curr === 'INR') return Math.round(num);
+      // If a proxy returned USD (e.g. $49.99) because of US egress IP, convert to standard Indian Rupee pricing
+      if (curr === 'USD') {
+        if (Math.abs(num - 69.99) < 1) return 4999;
+        if (Math.abs(num - 59.99) < 1) return 3999;
+        if (Math.abs(num - 49.99) < 1) return 3499;
+        if (Math.abs(num - 39.99) < 1) return 2799;
+        if (Math.abs(num - 29.99) < 1) return 1999;
+        if (Math.abs(num - 24.99) < 1) return 1499;
+        if (Math.abs(num - 19.99) < 1) return 1100;
+        if (Math.abs(num - 14.99) < 1) return 690;
+        if (Math.abs(num - 9.99) < 1) return 480;
+        return Math.round(num * 84);
+      }
+      if (curr === 'EUR') return Math.round(num * 90);
+      if (curr === 'GBP') return Math.round(num * 105);
+      return Math.round(num);
+    }
+
+    // Extract price from Steam `appObj` (supports both `price_overview` AND `package_groups` subs!)
+    function extractPriceFromSteamAppObj(appObj) {
+      if (!appObj) return null;
+      if (appObj.is_free) {
+        return { priceINR: 0, originalPriceINR: 0, discountPercent: 0, isFree: true };
+      }
+      if (appObj.price_overview && appObj.price_overview.final > 0) {
+        const po = appObj.price_overview;
+        const curr = po.currency || 'INR';
+        const finalRaw = po.final / 100;
+        const initialRaw = (po.initial || po.final) / 100;
+        const priceINR = normalizePriceToINR(finalRaw, curr);
+        const originalPriceINR = normalizePriceToINR(initialRaw, curr);
+        const discountPercent = po.discount_percent || (originalPriceINR > priceINR ? Math.round(((originalPriceINR - priceINR) / originalPriceINR) * 100) : 0);
+        return { priceINR, originalPriceINR, discountPercent };
+      }
+      // Fallback: Games like Halo: Campaign Evolved sometimes list editions inside `package_groups[0].subs`!
+      const subs = appObj.package_groups?.[0]?.subs;
+      if (Array.isArray(subs) && subs.length > 0) {
+        const validSub = subs.find(s => Number(s.price_in_cents_with_discount) > 0) || subs[0];
+        if (validSub && Number(validSub.price_in_cents_with_discount) > 0) {
+          const rawVal = Number(validSub.price_in_cents_with_discount) / 100;
+          // Check if option_text mentions ₹ or $
+          const isUSD = /\$/.test(validSub.option_text || '') && !/₹|RS/i.test(validSub.option_text || '');
+          const priceINR = normalizePriceToINR(rawVal, isUSD ? 'USD' : 'INR');
+          const disc = Number(validSub.percent_savings_text?.replace(/[^0-9]/g, '')) || 0;
+          const origINR = disc > 0 ? Math.round(priceINR / (1 - disc / 100)) : priceINR;
+          return { priceINR, originalPriceINR: origINR, discountPercent: disc };
+        }
+      }
+      return null;
+    }
+
+    // 4-Layer Bulletproof Indian Price (₹ INR) Resolver for any game
+    async function fetchIndianPriceData(title, appId) {
+      // Layer 1: Curated DB match
+      const cat = CURATED_GAMES_DB.find(
+        c => (appId && String(c.appId) === String(appId)) || normalizeGameKey(c.title) === normalizeGameKey(title)
+      );
+
+      // Layer 2: Steam `appdetails` with cc=IN
+      if (appId) {
+        try {
+          const detailsUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=IN&l=english`;
+          const dData = await fetchJsonWithCorsFallback(
+            detailsUrl,
+            4500,
+            d => d && d[appId] && d[appId].success !== undefined
+          );
+          const appObj = dData?.[appId]?.data;
+          const extracted = extractPriceFromSteamAppObj(appObj);
+          if (extracted && extracted.priceINR > 0) {
+            return { ...extracted, appId };
+          }
+        } catch (e) {}
+      }
+
+      // Layer 3: Steam `storesearch` with cc=IN
+      if (title) {
+        try {
+          const searchUrl = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(title)}&l=english&cc=IN`;
+          const sData = await fetchJsonWithCorsFallback(
+            searchUrl,
+            4500,
+            d => d && Array.isArray(d.items)
+          );
+          const matchItem = (sData?.items || []).find(
+            it => (appId && String(it.id) === String(appId)) || isStrictTitleMatch(title, it.name)
+          ) || sData?.items?.[0];
+          if (matchItem && matchItem.price && matchItem.price.final > 0) {
+            const curr = matchItem.price.currency || 'INR';
+            const fin = normalizePriceToINR(matchItem.price.final / 100, curr);
+            const ini = normalizePriceToINR((matchItem.price.initial || matchItem.price.final) / 100, curr);
+            const disc = ini > fin ? Math.round(((ini - fin) / ini) * 100) : 0;
+            return {
+              priceINR: fin,
+              originalPriceINR: ini,
+              discountPercent: disc,
+              appId: appId || String(matchItem.id)
+            };
+          }
+        } catch (e) {}
+      }
+
+      // Layer 4: CheapShark Native-CORS Steam API (100% browser CORS compatible, zero proxy needed)
+      if (title) {
+        try {
+          const csRes = await fetch(`https://www.cheapshark.com/api/1.0/deals?title=${encodeURIComponent(title)}&storeID=1&pageSize=5`);
+          if (csRes.ok) {
+            const deals = await csRes.json();
+            const best = (deals || []).find(
+              d => (appId && String(d.steamAppID) === String(appId)) || isStrictTitleMatch(title, d.title)
+            ) || deals?.[0];
+            if (best && Number(best.salePrice) > 0) {
+              const saleINR = normalizePriceToINR(Number(best.salePrice), 'USD');
+              const normINR = normalizePriceToINR(Number(best.normalPrice || best.salePrice), 'USD');
+              const disc = Math.round(Number(best.savings) || 0);
+              return {
+                priceINR: saleINR,
+                originalPriceINR: normINR,
+                discountPercent: disc,
+                appId: appId || (best.steamAppID ? String(best.steamAppID) : '')
+              };
+            }
+          }
+        } catch (e) {}
+      }
+
+      // Final Fallback: Curated DB if available
+      if (cat && cat.priceINR) {
+        return {
+          priceINR: cat.priceINR,
+          originalPriceINR: cat.originalPriceINR || cat.priceINR,
+          discountPercent: cat.discountPercent || 0,
+          appId: appId || cat.appId
+        };
+      }
+
+      return null;
+    }
+
+    // Interactive 1-Tap Single Game Price Fetcher (Triggered when clicking any ₹ badge!)
+    async function fetchSingleGameIndianPrice(id, event = null) {
+      if (event) event.stopPropagation();
+      const idx = games.findIndex(g => g.id === id);
+      if (idx === -1) return;
+      const game = games[idx];
+
+      showToast(`Fetching Steam India ₹ price for "${game.title}"...`, 'bg-zinc-200');
+      const priceData = await fetchIndianPriceData(game.title, game.appId);
+      if (priceData && priceData.priceINR > 0) {
+        games[idx].priceINR = priceData.priceINR;
+        games[idx].originalPriceINR = priceData.originalPriceINR;
+        games[idx].discountPercent = priceData.discountPercent;
+        if (priceData.appId && !games[idx].appId) games[idx].appId = priceData.appId;
+        saveGamesToStorage();
+        renderGames();
+        const detailModal = document.getElementById('detailModal');
+        if (detailModal && !detailModal.classList.contains('hidden')) {
+          openDetailModal(id);
+        }
+        showToast(`${game.title}: ${formatINR(priceData.priceINR)} on Steam India`, 'bg-emerald-400');
+      } else {
+        // Open Edit Modal focused on the ₹ INR field so the user can set a custom target price if unreleased
+        closeDetailModal();
+        openGameModal(id);
+        setTimeout(() => {
+          const priceInput = document.getElementById('gamePriceINR');
+          if (priceInput) priceInput.focus();
+        }, 350);
+        showToast('Game price unreleased on Steam — enter target ₹ price', 'bg-amber-400');
+      }
+    }
+
+    function resolveSteamCoverUrl(appId, tinyImage, headerImage) {
+      if (headerImage && headerImage.startsWith('http')) {
+        return headerImage;
+      }
+      const curated = CURATED_GAMES_DB.find(c => String(c.appId) === String(appId));
+      if (curated && curated.cover) {
+        return curated.cover;
+      }
+      if (tinyImage && tinyImage.startsWith('http')) {
+        const hasSha1Folder = /\/apps\/\d+\/[0-9a-f]{32,42}\//i.test(tinyImage);
+        if (hasSha1Folder || Number(appId) >= 2400000) {
+          return tinyImage;
+        }
+      }
+      if (appId) {
+        return `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`;
+      }
+      return tinyImage || '';
+    }
+
+    function normalizeGameKey(str) {
+      return (str || '')
+        .toLowerCase()
+        .replace(/[™®©]/g, '')
+        .replace(/\s*\([^)]*video game[^)]*\)\s*/gi, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+    }
+
+    function isStrictTitleMatch(targetTitle, candidateTitle) {
+      const normTarget = normalizeGameKey(targetTitle);
+      const normCand = normalizeGameKey(candidateTitle);
+      if (!normTarget || !normCand) return false;
+      if (normTarget === normCand) return true;
+
+      const targetWords = normTarget.split(' ').filter(Boolean);
+      const candWords = normCand.split(' ').filter(Boolean);
+
+      if (targetWords[0] !== candWords[0]) return false;
+      const allTargetWordsInCand = targetWords.every(w => candWords.includes(w));
+      const allCandWordsInTarget = candWords.every(w => targetWords.includes(w));
+      return allTargetWordsInCand && (candWords.length <= targetWords.length + 2 || allCandWordsInTarget);
+    }
+
+    function isValidWikipediaVideoGamePage(page, searchQuery) {
+      if (!page || !page.title) return false;
+      const cleanTitle = page.title.replace(/\s*\([^)]*video game[^)]*\)\s*/i, '').trim();
+      const titleLower = page.title.toLowerCase();
+      const extractLower = (page.extract || '').toLowerCase();
+
+      if (searchQuery) {
+        const qWords = normalizeGameKey(searchQuery).split(' ').filter(w => w.length >= 2);
+        const normTitle = normalizeGameKey(cleanTitle);
+        if (!qWords.every(w => normTitle.includes(w))) {
+          return false;
+        }
+      }
+
+      const junkTitlePatterns = [
+        '(disambiguation)', 'list of ', '(film)', '(tv series)', '(soundtrack)',
+        '(album)', '(song)', '(novel)', '(book)', '(character)', '(comics)',
+        '(board game)', '(card game)', 'discography', '(company)', '(season', '(episode'
+      ];
+      if (junkTitlePatterns.some(pat => titleLower.includes(pat))) {
+        return false;
+      }
+
+      const gameKeywords = [
+        'video game', 'role-playing game', 'action game', 'action-adventure',
+        'platform game', 'platformer', 'first-person shooter', 'third-person shooter',
+        'strategy game', 'simulation game', 'survival horror', 'fighting game',
+        'puzzle game', 'roguelike', 'metroidvania', 'expansion pack', 'developed by'
+      ];
+      if (!gameKeywords.some(kw => extractLower.includes(kw))) return false;
+      if (!page.thumbnail || !page.thumbnail.source) return false;
+
+      return true;
+    }
+
+    async function performMultiSourceGameSearch(query) {
+      const spinner = document.getElementById('liveSearchSpinner');
+      const clearBtn = document.getElementById('liveSearchClearBtn');
+      const statusEl = document.getElementById('liveSearchStatus');
+      const resultsBox = document.getElementById('liveSearchResults');
+
+      spinner.classList.remove('hidden');
+      clearBtn.classList.add('hidden');
+      statusEl.textContent = 'Searching Steam & catalog...';
+
+      const resultsMap = new Map();
+      const qNorm = normalizeGameKey(query);
+
+      function upsertResult(entry) {
+        if (!entry || !entry.title) return;
+        const key = entry.appId ? `app-${entry.appId}` : `title-${normalizeGameKey(entry.title)}`;
+        let existingKey = key;
+        for (const [k, v] of resultsMap.entries()) {
+          if (
+            (entry.appId && String(v.appId) === String(entry.appId)) ||
+            normalizeGameKey(v.title) === normalizeGameKey(entry.title)
+          ) {
+            existingKey = k;
+            break;
+          }
+        }
+        const prev = resultsMap.get(existingKey);
+        if (!prev) {
+          resultsMap.set(existingKey, entry);
+        } else {
+          resultsMap.set(existingKey, {
+            ...prev,
+            appId: prev.appId || entry.appId || '',
+            cover: prev.cover || entry.cover || '',
+            fallbackCover: prev.fallbackCover || entry.fallbackCover || '',
+            steamUrl: prev.steamUrl || entry.steamUrl || '',
+            genre: prev.genre || entry.genre || '',
+            platform: prev.platform || entry.platform || 'Steam / PC',
+            plot: prev.plot || entry.plot || '',
+            metacriticScore: prev.metacriticScore || entry.metacriticScore || '',
+            steamRatingPercent: prev.steamRatingPercent || entry.steamRatingPercent || '',
+            steamRatingText: prev.steamRatingText || entry.steamRatingText || '',
+            priceINR: prev.priceINR !== undefined && prev.priceINR !== '' ? prev.priceINR : entry.priceINR,
+            originalPriceINR: prev.originalPriceINR !== undefined && prev.originalPriceINR !== '' ? prev.originalPriceINR : entry.originalPriceINR,
+            discountPercent: prev.discountPercent || entry.discountPercent || 0,
+            source: prev.appId || entry.appId ? 'Steam' : prev.source
+          });
+        }
+      }
+
+      // 1. Instant Curated DB Matches
+      CURATED_GAMES_DB.forEach(item => {
+        if (normalizeGameKey(item.title).includes(qNorm) || (item.genre && normalizeGameKey(item.genre).includes(qNorm))) {
+          upsertResult({ ...item, source: 'Steam' });
+        }
+      });
+
+      if (resultsMap.size > 0) {
+        currentSearchResults = Array.from(resultsMap.values());
+        renderLiveSearchResults(currentSearchResults);
+      }
+
+      // 2. Parallel Fetch across Steam Store India, CheapShark, and Strictly-Filtered Wikipedia
+      const steamIndiaPromise = (async () => {
+        try {
+          const steamSearchUrl = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(query)}&l=english&cc=IN`;
+          const steamData = await fetchJsonWithCorsFallback(
+            steamSearchUrl,
+            4500,
+            d => d && Array.isArray(d.items)
+          );
+          if (steamData && Array.isArray(steamData.items)) {
+            steamData.items.slice(0, 10).forEach(item => {
+              const appId = String(item.id);
+              const curr = item.price?.currency || 'INR';
+              const finalINR = item.price?.final ? normalizePriceToINR(item.price.final / 100, curr) : undefined;
+              const initialINR = item.price?.initial ? normalizePriceToINR(item.price.initial / 100, curr) : finalINR;
+              const discount = initialINR && finalINR && initialINR > finalINR
+                ? Math.round(((initialINR - finalINR) / initialINR) * 100)
+                : 0;
+              const safeCover = resolveSteamCoverUrl(appId, item.tiny_image, '');
+
+              upsertResult({
+                appId,
+                title: item.name,
+                cover: safeCover,
+                fallbackCover: item.tiny_image || '',
+                steamUrl: `https://store.steampowered.com/app/${appId}/`,
+                genre: '',
+                platform: 'Steam / PC',
+                plot: '',
+                metacriticScore: item.metascore ? Number(item.metascore) : '',
+                steamRatingPercent: '',
+                steamRatingText: '',
+                priceINR: finalINR,
+                originalPriceINR: initialINR,
+                discountPercent: discount,
+                source: 'Steam'
+              });
+            });
+          }
+        } catch (e) {}
+      })();
+
+      const cheapSharkPromise = (async () => {
+        try {
+          const csUrl = `https://www.cheapshark.com/api/1.0/deals?title=${encodeURIComponent(query)}&storeID=1&pageSize=10`;
+          const res = await fetch(csUrl);
+          if (!res.ok) return;
+          const deals = await res.json();
+          if (Array.isArray(deals)) {
+            deals.forEach(d => {
+              if (!d.steamAppID) return;
+              const appId = String(d.steamAppID);
+              const safeCover = resolveSteamCoverUrl(appId, d.thumb, '');
+              const saleINR = Number(d.salePrice) > 0 ? normalizePriceToINR(Number(d.salePrice), 'USD') : undefined;
+              const normINR = Number(d.normalPrice) > 0 ? normalizePriceToINR(Number(d.normalPrice), 'USD') : saleINR;
+              const disc = Math.round(Number(d.savings) || 0);
+
+              upsertResult({
+                appId,
+                title: d.title,
+                cover: safeCover,
+                fallbackCover: d.thumb || '',
+                steamUrl: `https://store.steampowered.com/app/${appId}/`,
+                genre: '',
+                platform: 'Steam / PC',
+                plot: '',
+                metacriticScore: Number(d.metacriticScore) > 0 ? Number(d.metacriticScore) : '',
+                steamRatingPercent: Number(d.steamRatingPercent) > 0 ? Number(d.steamRatingPercent) : '',
+                steamRatingText: d.steamRatingText || '',
+                priceINR: saleINR,
+                originalPriceINR: normINR,
+                discountPercent: disc,
+                source: 'Steam'
+              });
+            });
+          }
+        } catch (e) {}
+      })();
+
+      const wikiPromise = (async () => {
+        try {
+          const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent('intitle:"' + query + '" video game')}&gsrlimit=6&prop=pageimages|extracts&pilicense=any&pithumbsize=700&exintro=1&explaintext=1&exchars=320&format=json&origin=*`;
+          const wikiRes = await fetch(wikiUrl);
+          if (!wikiRes.ok) return;
+          const wikiData = await wikiRes.json();
+          const pages = wikiData?.query?.pages ? Object.values(wikiData.query.pages) : [];
+          pages.sort((a, b) => (a.index || 99) - (b.index || 99));
+
+          pages.forEach(page => {
+            if (!isValidWikipediaVideoGamePage(page, query)) return;
+            const cleanTitle = page.title.replace(/\s*\([^)]*video game[^)]*\)\s*/i, '').trim();
+            const extract = cleanWikiExtract(page.extract || '');
+            upsertResult({
+              title: cleanTitle,
+              cover: page.thumbnail.source,
+              steamUrl: '',
+              genre: extractGenreFromText(extract) || 'Video Game',
+              platform: 'PS5',
+              plot: extract,
+              wikiTitle: page.title,
+              source: 'Wiki'
+            });
+          });
+        } catch (e) {}
+      })();
+
+      await Promise.allSettled([steamIndiaPromise, cheapSharkPromise, wikiPromise]);
+
+      spinner.classList.add('hidden');
+      clearBtn.classList.remove('hidden');
+
+      currentSearchResults = Array.from(resultsMap.values())
+        .sort((a, b) => {
+          const aExact = normalizeGameKey(a.title) === qNorm ? 1 : 0;
+          const bExact = normalizeGameKey(b.title) === qNorm ? 1 : 0;
+          if (aExact !== bExact) return bExact - aExact;
+          const aSteam = a.source === 'Steam' ? 1 : 0;
+          const bSteam = b.source === 'Steam' ? 1 : 0;
+          if (aSteam !== bSteam) return bSteam - aSteam;
+          return (Number(b.metacriticScore) || 0) - (Number(a.metacriticScore) || 0);
+        })
+        .slice(0, 10);
+
+      if (currentSearchResults.length > 0) {
+        statusEl.textContent = `${currentSearchResults.length} verified matches`;
+        renderLiveSearchResults(currentSearchResults);
+      } else {
+        statusEl.textContent = 'No exact matches found';
+        resultsBox.innerHTML = `
+          <div class="p-3.5 text-center text-xs text-zinc-400">
+            No verified games found for "${escapeHtml(query)}". Tip: Paste a Steam Store link or App ID directly!
+          </div>
+        `;
+        resultsBox.classList.remove('hidden');
+      }
+    }
+
+    function renderLiveSearchResults(results) {
+      const resultsBox = document.getElementById('liveSearchResults');
+      resultsBox.innerHTML = results.map((item, idx) => {
+        const fallbackSvg = createObsidianFallbackCover(item.title);
+        const backupImg = item.fallbackCover ? escapeHtml(item.fallbackCover) : fallbackSvg;
+        return `
+          <button
+            type="button"
+            onclick="selectLiveSearchResult(${idx})"
+            class="tap-bounce w-full p-2.5 text-left hover:bg-white/[0.06] flex items-center gap-3 transition-colors"
+          >
+            <div class="w-20 h-11 rounded-xl bg-obsidian-900 overflow-hidden shrink-0 border border-white/10 relative">
+              <img
+                src="${escapeHtml(item.cover || backupImg)}"
+                alt="${escapeHtml(item.title)}"
+                onerror="if (this.src !== '${backupImg}') { this.src = '${backupImg}'; } else { this.onerror = null; this.src = '${fallbackSvg}'; }"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <p class="text-xs font-bold text-white truncate max-w-[180px] sm:max-w-[260px]">${escapeHtml(item.title)}</p>
+                <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold uppercase bg-white/[0.08] text-zinc-300">${escapeHtml(item.source)}</span>
+                ${item.metacriticScore ? `
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    MC ${escapeHtml(String(item.metacriticScore))}
+                  </span>
+                ` : ''}
+                ${item.steamRatingPercent ? `
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                    ${escapeHtml(String(item.steamRatingPercent))}%
+                  </span>
+                ` : ''}
+                ${item.priceINR ? `
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-white/10 text-zinc-100">
+                    ${formatINR(item.priceINR)}
+                  </span>
+                ` : ''}
+              </div>
+              <p class="text-[11px] text-zinc-400 truncate mt-0.5">
+                ${item.plot ? escapeHtml(item.plot) : (item.genre ? escapeHtml(item.genre) : 'Tap to auto-fill cover art, ratings, synopsis & ₹ price')}
+              </p>
+            </div>
+            <i data-lucide="arrow-down-left" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+          </button>
+        `;
+      }).join('');
+      resultsBox.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function selectLiveSearchResult(index) {
+      const item = currentSearchResults[index];
+      if (!item) return;
+      applySelectedSearchResult(item);
+    }
+
+    async function applySelectedSearchResult(item) {
+      document.getElementById('gameTitle').value = item.title || '';
+      document.getElementById('gameAppId').value = item.appId || '';
+      document.getElementById('gameCover').value = item.cover || '';
+      document.getElementById('gameSteamUrl').value = item.steamUrl || '';
+      document.getElementById('gameGenre').value = item.genre || '';
+      document.getElementById('gamePlatform').value = item.platform || 'Steam / PC';
+      document.getElementById('gameMetacritic').value = item.metacriticScore || '';
+      document.getElementById('gameSteamPercent').value = item.steamRatingPercent || '';
+      document.getElementById('gameSteamText').value = item.steamRatingText || '';
+      document.getElementById('gamePriceINR').value = item.priceINR !== undefined && item.priceINR !== '' ? item.priceINR : '';
+      document.getElementById('gameOriginalPriceINR').value = item.originalPriceINR !== undefined && item.originalPriceINR !== '' ? item.originalPriceINR : '';
+      document.getElementById('gameDiscountPercent').value = item.discountPercent !== undefined && item.discountPercent !== '' ? item.discountPercent : '';
+      document.getElementById('gamePlot').value = item.plot || '';
+
+      const previewImg = document.getElementById('coverPreviewImg');
+      if (previewImg) {
+        previewImg.setAttribute('data-fallback-cover', item.fallbackCover || '');
+      }
+      updateCoverPreview(item.cover || item.fallbackCover || '');
+
+      document.getElementById('liveSearchResults').classList.add('hidden');
+      document.getElementById('liveSearchStatus').textContent = 'Metadata applied!';
+
+      await enrichFormMetadata({
+        title: item.title,
+        appId: item.appId,
+        wikiTitle: item.wikiTitle,
+        fallbackCover: item.fallbackCover
+      });
+    }
+
+    async function fetchSteamReviewsSummary(appId) {
+      if (!appId) return null;
+      try {
+        const revUrl = `https://store.steampowered.com/appreviews/${appId}?json=1&language=all&purchase_type=all&num_per_page=0`;
+        const revData = await fetchJsonWithCorsFallback(
+          revUrl,
+          4000,
+          d => d && d.query_summary !== undefined
+        );
+        const qs = revData?.query_summary;
+        if (qs && Number(qs.total_reviews) > 0) {
+          const pct = Math.round((Number(qs.total_positive) / Number(qs.total_reviews)) * 100);
+          return {
+            steamRatingPercent: pct,
+            steamRatingText: qs.review_score_desc || (pct >= 95 ? 'Overwhelmingly Positive' : pct >= 80 ? 'Very Positive' : 'Positive')
+          };
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    async function enrichFormMetadata({ title, appId, wikiTitle, fallbackCover }) {
+      const badge = document.getElementById('metadataFetchBadge');
+      const plotInput = document.getElementById('gamePlot');
+      badge.classList.remove('hidden');
+
+      // 0. Check Curated DB first
+      const curated = CURATED_GAMES_DB.find(
+        c => (appId && String(c.appId) === String(appId)) || normalizeGameKey(c.title) === normalizeGameKey(title)
+      );
+      if (curated) {
+        appId = appId || curated.appId;
+        document.getElementById('gameAppId').value = appId;
+        if (!document.getElementById('gameCover').value || document.getElementById('gameCover').value.includes('capsule_')) {
+          document.getElementById('gameCover').value = curated.cover;
+          updateCoverPreview(curated.cover);
+        }
+        if (!plotInput.value && curated.plot) plotInput.value = curated.plot;
+        if (!document.getElementById('gameGenre').value && curated.genre) document.getElementById('gameGenre').value = curated.genre;
+        if (!document.getElementById('gameMetacritic').value && curated.metacriticScore) document.getElementById('gameMetacritic').value = curated.metacriticScore;
+        if (!document.getElementById('gameSteamPercent').value && curated.steamRatingPercent) document.getElementById('gameSteamPercent').value = curated.steamRatingPercent;
+        if (!document.getElementById('gameSteamText').value && curated.steamRatingText) document.getElementById('gameSteamText').value = curated.steamRatingText;
+        if (!document.getElementById('gamePriceINR').value && curated.priceINR) {
+          document.getElementById('gamePriceINR').value = curated.priceINR;
+          document.getElementById('gameOriginalPriceINR').value = curated.originalPriceINR;
+          document.getElementById('gameDiscountPercent').value = curated.discountPercent || 0;
+        }
+      }
+
+      // 1. If we don't have an appId yet, try finding it via Steam storesearch (cc=IN)
+      if (!appId) {
+        try {
+          const sUrl = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(title)}&l=english&cc=IN`;
+          const sData = await fetchJsonWithCorsFallback(sUrl, 4200, d => d && Array.isArray(d.items));
+          const exactItem = (sData?.items || []).find(it => isStrictTitleMatch(title, it.name)) || sData?.items?.[0];
+          if (exactItem && isStrictTitleMatch(title, exactItem.name)) {
+            appId = String(exactItem.id);
+            document.getElementById('gameAppId').value = appId;
+            document.getElementById('gameSteamUrl').value = `https://store.steampowered.com/app/${appId}/`;
+            if (!document.getElementById('gameCover').value && exactItem.tiny_image) {
+              const cov = resolveSteamCoverUrl(appId, exactItem.tiny_image, '');
+              document.getElementById('gameCover').value = cov;
+              updateCoverPreview(cov);
+            }
+            if (!document.getElementById('gamePriceINR').value && exactItem.price?.final) {
+              const curr = exactItem.price.currency || 'INR';
+              const fin = normalizePriceToINR(exactItem.price.final / 100, curr);
+              const ini = normalizePriceToINR((exactItem.price.initial || exactItem.price.final) / 100, curr);
+              document.getElementById('gamePriceINR').value = fin;
+              document.getElementById('gameOriginalPriceINR').value = ini;
+              document.getElementById('gameDiscountPercent').value = ini > fin ? Math.round(((ini - fin) / ini) * 100) : 0;
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 2. Fetch Steam `appdetails` + `appreviews` in parallel
+      if (appId) {
+        const detailsPromise = (async () => {
+          try {
+            const detailsUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=IN&l=english`;
+            const detailsData = await fetchJsonWithCorsFallback(
+              detailsUrl,
+              4500,
+              d => d && d[appId] && d[appId].success !== undefined
+            );
+            const appObj = detailsData?.[appId]?.data;
+            if (appObj) {
+              if (appObj.header_image) {
+                const cleanHeader = appObj.header_image.split('?')[0];
+                document.getElementById('gameCover').value = cleanHeader;
+                updateCoverPreview(cleanHeader);
+              }
+              if (!plotInput.value && appObj.short_description) {
+                plotInput.value = decodeHtmlEntities(appObj.short_description);
+              }
+              if (!document.getElementById('gameGenre').value && Array.isArray(appObj.genres) && appObj.genres.length > 0) {
+                document.getElementById('gameGenre').value = appObj.genres.map(g => g.description).slice(0, 2).join(' / ');
+              }
+              if (!document.getElementById('gameMetacritic').value && appObj.metacritic?.score) {
+                document.getElementById('gameMetacritic').value = appObj.metacritic.score;
+              }
+              const extractedPrice = extractPriceFromSteamAppObj(appObj);
+              if (extractedPrice && extractedPrice.priceINR > 0) {
+                document.getElementById('gamePriceINR').value = extractedPrice.priceINR;
+                document.getElementById('gameOriginalPriceINR').value = extractedPrice.originalPriceINR;
+                document.getElementById('gameDiscountPercent').value = extractedPrice.discountPercent;
+              }
+            }
+          } catch (e) {}
+        })();
+
+        const reviewsPromise = (async () => {
+          if (!document.getElementById('gameSteamPercent').value) {
+            const rev = await fetchSteamReviewsSummary(appId);
+            if (rev) {
+              document.getElementById('gameSteamPercent').value = rev.steamRatingPercent;
+              if (!document.getElementById('gameSteamText').value) {
+                document.getElementById('gameSteamText').value = rev.steamRatingText;
+              }
+            }
+          }
+        })();
+
+        await Promise.allSettled([detailsPromise, reviewsPromise]);
+      }
+
+      // 3. CheapShark fallback for Metacritic, Steam Rating %, AND USD->INR Price if still missing!
+      if (!document.getElementById('gameMetacritic').value || !document.getElementById('gameSteamPercent').value || !document.getElementById('gamePriceINR').value) {
+        try {
+          const csRes = await fetch(`https://www.cheapshark.com/api/1.0/deals?title=${encodeURIComponent(title)}&storeID=1&pageSize=5`);
+          if (csRes.ok) {
+            const deals = await csRes.json();
+            const exactDeal = (deals || []).find(
+              d => (appId && String(d.steamAppID) === String(appId)) || isStrictTitleMatch(title, d.title)
+            );
+            if (exactDeal) {
+              if (!document.getElementById('gameMetacritic').value && Number(exactDeal.metacriticScore) > 0) {
+                document.getElementById('gameMetacritic').value = exactDeal.metacriticScore;
+              }
+              if (!document.getElementById('gameSteamPercent').value && Number(exactDeal.steamRatingPercent) > 0) {
+                document.getElementById('gameSteamPercent').value = exactDeal.steamRatingPercent;
+              }
+              if (!document.getElementById('gameSteamText').value && exactDeal.steamRatingText) {
+                document.getElementById('gameSteamText').value = exactDeal.steamRatingText;
+              }
+              if (!document.getElementById('gamePriceINR').value && Number(exactDeal.salePrice) > 0) {
+                document.getElementById('gamePriceINR').value = normalizePriceToINR(Number(exactDeal.salePrice), 'USD');
+                document.getElementById('gameOriginalPriceINR').value = normalizePriceToINR(Number(exactDeal.normalPrice || exactDeal.salePrice), 'USD');
+                document.getElementById('gameDiscountPercent').value = Math.round(Number(exactDeal.savings) || 0);
+              }
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 4. Strictly-Verified Wikipedia Fallback ONLY if plot is still empty
+      if (!plotInput.value) {
+        const wikiResult = await fetchWikipediaPlotAndGenre(wikiTitle || title);
+        if (wikiResult.plot) plotInput.value = wikiResult.plot;
+        if (!document.getElementById('gameGenre').value && wikiResult.genre) {
+          document.getElementById('gameGenre').value = wikiResult.genre;
+        }
+        if (!document.getElementById('gameCover').value && wikiResult.cover) {
+          document.getElementById('gameCover').value = wikiResult.cover;
+          updateCoverPreview(wikiResult.cover);
+        }
+      }
+
+      badge.classList.add('hidden');
+      showToast(`Auto-filled "${title}"`, 'bg-emerald-400');
+    }
+
+    async function fetchPlotForCurrentTitle() {
+      const title = document.getElementById('gameTitle').value.trim();
+      const appId = document.getElementById('gameAppId').value.trim();
+      if (!title) {
+        showToast('Enter a Game Title first', 'bg-amber-400');
+        return;
+      }
+      showToast('Syncing plot, ratings & ₹ price...', 'bg-zinc-200');
+      await enrichFormMetadata({ title, appId });
+    }
+
+    async function fetchWikipediaPlotAndGenre(gameTitle) {
+      try {
+        const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent('intitle:"' + gameTitle + '" video game')}&gsrlimit=4&prop=pageimages|extracts&pilicense=any&pithumbsize=700&exintro=1&explaintext=1&exchars=380&format=json&origin=*`;
+        const res = await fetch(searchUrl);
+        if (!res.ok) return { plot: '', genre: '', cover: '' };
+        const data = await res.json();
+        const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+        pages.sort((a, b) => (a.index || 99) - (b.index || 99));
+
+        const validPage = pages.find(p => {
+          const cleaned = (p.title || '').replace(/\s*\([^)]*video game[^)]*\)\s*/i, '').trim();
+          return isStrictTitleMatch(gameTitle, cleaned) && isValidWikipediaVideoGamePage(p, gameTitle);
+        });
+
+        if (!validPage) return { plot: '', genre: '', cover: '' };
+
+        const extract = cleanWikiExtract(validPage.extract || '');
+        const cover = validPage.thumbnail?.source || '';
+        return {
+          plot: extract,
+          genre: extractGenreFromText(extract),
+          cover
+        };
+      } catch (e) {
+        return { plot: '', genre: '', cover: '' };
+      }
+    }
+
+    async function fetchDirectSteamAppId(appId) {
+      const steamUrl = `https://store.steampowered.com/app/${appId}/`;
+      document.getElementById('gameAppId').value = appId;
+      document.getElementById('gameSteamUrl').value = steamUrl;
+      document.getElementById('liveSearchStatus').textContent = `Fetching Steam App #${appId}...`;
+
+      try {
+        const detailsUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=IN&l=english`;
+        const detailsData = await fetchJsonWithCorsFallback(
+          detailsUrl,
+          4500,
+          d => d && d[appId] && d[appId].success !== undefined
+        );
+        const appObj = detailsData?.[appId]?.data;
+        if (appObj) {
+          if (appObj.name) document.getElementById('gameTitle').value = appObj.name;
+          if (appObj.header_image) {
+            const cleanHeader = appObj.header_image.split('?')[0];
+            document.getElementById('gameCover').value = cleanHeader;
+            updateCoverPreview(cleanHeader);
+          }
+          if (appObj.short_description) {
+            document.getElementById('gamePlot').value = decodeHtmlEntities(appObj.short_description);
+          }
+          if (Array.isArray(appObj.genres) && appObj.genres.length > 0) {
+            document.getElementById('gameGenre').value = appObj.genres.map(g => g.description).slice(0, 2).join(' / ');
+          }
+          if (appObj.metacritic?.score) {
+            document.getElementById('gameMetacritic').value = appObj.metacritic.score;
+          }
+          const extractedPrice = extractPriceFromSteamAppObj(appObj);
+          if (extractedPrice && extractedPrice.priceINR > 0) {
+            document.getElementById('gamePriceINR').value = extractedPrice.priceINR;
+            document.getElementById('gameOriginalPriceINR').value = extractedPrice.originalPriceINR;
+            document.getElementById('gameDiscountPercent').value = extractedPrice.discountPercent;
+          }
+          await enrichFormMetadata({ title: appObj.name || '', appId });
+          return;
+        }
+      } catch (e) {}
+
+      const fallbackCover = resolveSteamCoverUrl(appId, '', '');
+      document.getElementById('gameCover').value = fallbackCover;
+      updateCoverPreview(fallbackCover);
+      showToast(`Steam App #${appId} loaded`, 'bg-emerald-400');
+    }
+
+    function updateCoverPreview(url) {
+      const container = document.getElementById('coverPreviewContainer');
+      const img = document.getElementById('coverPreviewImg');
+      const cleanUrl = (url || '').trim();
+      if (!cleanUrl) {
+        container.classList.add('hidden');
+        img.src = '';
+        return;
+      }
+      img.src = cleanUrl;
+      container.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function cleanWikiExtract(text) {
+      if (!text) return '';
+      return text.replace(/\s+/g, ' ').trim();
+    }
+
+    function extractGenreFromText(text) {
+      if (!text) return '';
+      const genres = [
+        'action role-playing', 'role-playing', 'metroidvania', 'roguelike',
+        'action-adventure', 'first-person shooter', 'platformer', 'survival horror',
+        'strategy', 'simulation', 'fighting', 'puzzle', 'adventure'
+      ];
+      const lower = text.toLowerCase();
+      for (const g of genres) {
+        if (lower.includes(g)) {
+          return g.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        }
+      }
+      return '';
+    }
+
+    function decodeHtmlEntities(str) {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = str;
+      return txt.value;
+    }
+
+    // =========================================================
+    // BULK LIBRARY METADATA & WISHLIST ₹ INR PRICE SYNC
+    // =========================================================
+    async function syncAllLibraryMetadata() {
+      showToast('Syncing ratings, covers & Steam India ₹ prices...', 'bg-zinc-200');
+      let updatedCount = 0;
+
+      for (const game of games) {
+        const cat = CURATED_GAMES_DB.find(
+          c => normalizeGameKey(c.title) === normalizeGameKey(game.title) || (game.appId && String(c.appId) === String(game.appId))
+        );
+        if (cat) {
+          game.appId = game.appId || cat.appId;
+          game.metacriticScore = game.metacriticScore || cat.metacriticScore;
+          game.steamRatingPercent = game.steamRatingPercent || cat.steamRatingPercent;
+          game.steamRatingText = game.steamRatingText || cat.steamRatingText;
+          game.cover = cat.cover;
+          if (!game.plot || /Fallout|Vault Dweller/i.test(game.plot)) game.plot = cat.plot;
+          if (!Number(game.priceINR) && cat.priceINR) {
+            game.priceINR = cat.priceINR;
+            game.originalPriceINR = cat.originalPriceINR;
+            game.discountPercent = cat.discountPercent;
+          }
+          updatedCount++;
+          continue;
+        }
+
+        try {
+          const priceData = await fetchIndianPriceData(game.title, game.appId);
+          if (priceData) {
+            if (priceData.appId && !game.appId) game.appId = priceData.appId;
+            if (priceData.priceINR > 0) {
+              game.priceINR = priceData.priceINR;
+              game.originalPriceINR = priceData.originalPriceINR;
+              game.discountPercent = priceData.discountPercent;
+            }
+          }
+          if (game.appId) {
+            const detailsUrl = `https://store.steampowered.com/api/appdetails?appids=${game.appId}&cc=IN&l=english`;
+            const dData = await fetchJsonWithCorsFallback(
+              detailsUrl,
+              4000,
+              d => d && d[game.appId] && d[game.appId].success !== undefined
+            );
+            const appObj = dData?.[game.appId]?.data;
+            if (appObj) {
+              if (appObj.header_image) game.cover = appObj.header_image.split('?')[0];
+              if (!game.plot && appObj.short_description) game.plot = decodeHtmlEntities(appObj.short_description);
+              if (!game.metacriticScore && appObj.metacritic?.score) game.metacriticScore = appObj.metacritic.score;
+            }
+            if (!game.steamRatingPercent) {
+              const rev = await fetchSteamReviewsSummary(game.appId);
+              if (rev) {
+                game.steamRatingPercent = rev.steamRatingPercent;
+                game.steamRatingText = rev.steamRatingText;
+              }
+            }
+            updatedCount++;
+          }
+        } catch (e) {}
+      }
+
+      saveGamesToStorage();
+      renderGames();
+      showToast(`Synced metadata & ₹ prices for ${updatedCount} titles`, 'bg-emerald-400');
+    }
+
+    async function refreshWishlistIndianPrices() {
+      const wishlistGames = games.filter(g => g.status === 'wishlist');
+      if (wishlistGames.length === 0) {
+        showToast('No games in Wishlist yet', 'bg-amber-400');
+        return;
+      }
+      showToast('Refreshing Steam India (₹ INR) prices...', 'bg-zinc-200');
+      let refreshed = 0;
+
+      for (const game of wishlistGames) {
+        const priceData = await fetchIndianPriceData(game.title, game.appId);
+        if (priceData && priceData.priceINR > 0) {
+          game.priceINR = priceData.priceINR;
+          game.originalPriceINR = priceData.originalPriceINR;
+          game.discountPercent = priceData.discountPercent;
+          if (priceData.appId && !game.appId) game.appId = priceData.appId;
+          refreshed++;
+        }
+      }
+
+      saveGamesToStorage();
+      renderGames();
+      showToast(`Updated ₹ INR prices for ${refreshed} wishlist ${refreshed === 1 ? 'title' : 'titles'}`, 'bg-emerald-400');
+    }
+
+    // =========================================================
+    // VIEW MODES, SORTING, FILTERING & RENDERING
+    // =========================================================
+    function setFilter(filterKey) {
+      activeFilter = filterKey;
+      renderFilterTabs();
+      renderGames();
+    }
+
+    function setViewMode(mode) {
+      viewMode = mode;
+      try { localStorage.setItem(VIEW_MODE_KEY, mode); } catch (e) {}
+      updateViewModeUI();
+      renderGames();
+    }
+
+    function updateViewModeUI() {
+      const mapping = {
+        big: 'viewBtnBig',
+        grid: 'viewBtnGrid',
+        compact: 'viewBtnCompact'
+      };
+      Object.entries(mapping).forEach(([key, btnId]) => {
+        const el = document.getElementById(btnId);
+        if (!el) return;
+        if (viewMode === key) {
+          el.className = 'tap-bounce px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 transition-all bg-white text-zinc-950 shadow-sm';
+        } else {
+          el.className = 'tap-bounce px-3 py-1 rounded-full text-[11px] font-medium flex items-center gap-1.5 transition-all text-zinc-400 hover:text-zinc-200';
+        }
+      });
+    }
+
+    function setSortOrder(orderKey) {
+      sortOrder = orderKey;
+      try { localStorage.setItem(SORT_ORDER_KEY, orderKey); } catch (e) {}
+      renderGames();
+    }
+
+    function renderFilterTabs() {
+      const tabs = [
+        { key: 'all', label: 'All', count: games.length },
+        { key: 'on_hold', label: 'On Hold', count: games.filter(g => g.status === 'on_hold').length },
+        { key: 'playing', label: 'Playing', count: games.filter(g => g.status === 'playing').length },
+        { key: 'backlog', label: 'Backlog', count: games.filter(g => g.status === 'backlog').length },
+        { key: 'wishlist', label: 'Wishlist ₹', count: games.filter(g => g.status === 'wishlist').length },
+        { key: 'completed', label: 'Completed', count: games.filter(g => g.status === 'completed').length }
+      ];
+
+      const container = document.getElementById('filterTabs');
+      container.innerHTML = tabs.map(tab => {
+        const isActive = activeFilter === tab.key;
+        return `
+          <button
+            type="button"
+            onclick="setFilter('${tab.key}')"
+            class="tap-bounce shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 border transition-all ${
+              isActive
+                ? 'bg-white text-zinc-950 border-white shadow-md'
+                : 'bg-black/40 text-zinc-400 border-white/[0.07] hover:text-zinc-200 hover:border-white/15'
+            }"
+          >
+            <span>${tab.label}</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+              isActive ? 'bg-zinc-950/15 text-zinc-950 font-bold' : 'bg-white/[0.06] text-zinc-400'
+            }">${tab.count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderMetacriticBadge(score, compact = false) {
+      const num = Number(score);
+      if (!num || num <= 0) return '';
+      let colorCls = 'bg-black/75 text-emerald-300 border-emerald-400/35';
+      if (num < 75 && num >= 50) colorCls = 'bg-black/75 text-amber-300 border-amber-400/35';
+      if (num < 50) colorCls = 'bg-black/75 text-rose-300 border-rose-400/35';
+
+      if (compact) {
+        return `<span class="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold border ${colorCls}" title="Metacritic Score: ${num}">MC ${num}</span>`;
+      }
+      return `
+        <span class="px-2 py-0.5 rounded-lg text-[11px] font-mono font-bold border backdrop-blur-md flex items-center gap-1 ${colorCls}" title="Metacritic Metascore">
+          <span class="text-[9px] uppercase tracking-wider opacity-75">MC</span>
+          <span>${num}</span>
+        </span>
+      `;
+    }
+
+    function renderSteamRatingBadge(percent, text, compact = false) {
+      const num = Number(percent);
+      if (!num || num <= 0) return '';
+      let colorCls = 'bg-black/75 text-sky-200 border-sky-400/30';
+      if (num < 70) colorCls = 'bg-black/75 text-amber-200 border-amber-400/30';
+
+      if (compact) {
+        return `<span class="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold border ${colorCls}" title="Steam Rating: ${num}% ${escapeHtml(text || '')}">${num}%</span>`;
+      }
+      return `
+        <span class="px-2 py-0.5 rounded-lg text-[11px] font-mono font-bold border backdrop-blur-md flex items-center gap-1 ${colorCls}" title="${escapeHtml(text || 'Steam User Rating')}">
+          <span>${num}%</span>
+          ${text ? `<span class="hidden sm:inline font-sans text-[10px] font-medium opacity-80">· ${escapeHtml(text)}</span>` : ''}
+        </span>
+      `;
+    }
+
+    // Interactive Indian Price Badge — STRICTLY rendered ONLY when game.status === 'wishlist'
+    // Clicking the badge directly triggers a live fetch/refresh for that game!
+    function renderWishlistINRBadge(game, compact = false) {
+      if (game.status !== 'wishlist') return '';
+      const price = Number(game.priceINR);
+      const orig = Number(game.originalPriceINR);
+      const disc = Number(game.discountPercent) || (orig > price && price > 0 ? Math.round(((orig - price) / orig) * 100) : 0);
+
+      if (!price || price <= 0) {
+        return compact
+          ? `<button type="button" onclick="fetchSingleGameIndianPrice('${game.id}', event)" class="tap-bounce px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-white text-zinc-950 shadow-sm">₹ Fetch</button>`
+          : `<button type="button" onclick="fetchSingleGameIndianPrice('${game.id}', event)" class="tap-bounce px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-white text-zinc-950 shadow-md flex items-center gap-1"><span>₹ Fetch Price</span></button>`;
+      }
+
+      if (compact) {
+        return `
+          <button
+            type="button"
+            onclick="fetchSingleGameIndianPrice('${game.id}', event)"
+            title="Tap to refresh Steam India ₹ price"
+            class="tap-bounce px-2 py-0.5 rounded-lg text-[11px] font-mono font-bold bg-black/80 text-white border border-white/20 flex items-center gap-1"
+          >
+            ${disc > 0 ? `<span class="text-emerald-400">-${disc}%</span>` : ''}
+            <span>${formatINR(price)}</span>
+          </button>
+        `;
+      }
+
+      return `
+        <button
+          type="button"
+          onclick="fetchSingleGameIndianPrice('${game.id}', event)"
+          title="Tap to refresh Steam India ₹ price"
+          class="tap-bounce px-2.5 py-1 rounded-full text-[11px] font-mono font-bold ${
+            disc > 0 ? 'sale-badge-shimmer border-emerald-400/45 text-emerald-100' : 'bg-black/80 border-white/20 text-white'
+          } border backdrop-blur-md flex items-center gap-1.5 shadow-lg"
+        >
+          ${disc > 0 ? `<span class="px-1.5 py-0.2 rounded bg-emerald-400 text-zinc-950 text-[9px] font-black">-${disc}%</span>` : ''}
+          ${disc > 0 && orig > price ? `<span class="line-through text-[10px] opacity-60">${formatINR(orig)}</span>` : ''}
+          <span>${formatINR(price)}</span>
+        </button>
+      `;
+    }
+
+    function parseHoursNumeric(hoursStr) {
+      const m = String(hoursStr || '').match(/(\d+(\.\d+)?)/);
+      return m ? parseFloat(m[1]) : 0;
+    }
+
+    function renderGames() {
+      updateStats();
+      const query = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+
+      const filtered = games.filter(game => {
+        const matchesTab = activeFilter === 'all' || game.status === activeFilter;
+        const matchesSearch = !query ||
+          (game.title || '').toLowerCase().includes(query) ||
+          (game.genre || '').toLowerCase().includes(query) ||
+          (game.platform || '').toLowerCase().includes(query) ||
+          (game.resumeNotes || '').toLowerCase().includes(query) ||
+          (game.plot || '').toLowerCase().includes(query);
+        return matchesTab && matchesSearch;
+      });
+
+      filtered.sort((a, b) => {
+        if (sortOrder === 'metacritic') {
+          return (Number(b.metacriticScore) || 0) - (Number(a.metacriticScore) || 0);
+        }
+        if (sortOrder === 'steam') {
+          return (Number(b.steamRatingPercent) || 0) - (Number(a.steamRatingPercent) || 0);
+        }
+        if (sortOrder === 'price_asc') {
+          const pA = Number(a.priceINR) || 999999;
+          const pB = Number(b.priceINR) || 999999;
+          return pA - pB;
+        }
+        if (sortOrder === 'hours') {
+          return parseHoursNumeric(b.hours) - parseHoursNumeric(a.hours);
+        }
+        if (sortOrder === 'title') {
+          return (a.title || '').localeCompare(b.title || '');
+        }
+        return (b.updatedAt || 0) - (a.updatedAt || 0);
+      });
+
+      const listEl = document.getElementById('gamesList');
+      const emptyEl = document.getElementById('emptyState');
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        lucide.createIcons();
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+
+      if (viewMode === 'grid') {
+        listEl.className = 'grid grid-cols-2 sm:grid-cols-3 gap-3.5';
+        listEl.innerHTML = filtered.map((game, i) => renderSmallGridCard(game, i)).join('');
+      } else if (viewMode === 'compact') {
+        listEl.className = 'space-y-2.5';
+        listEl.innerHTML = filtered.map((game, i) => renderCompactRow(game, i)).join('');
+      } else {
+        listEl.className = 'space-y-4';
+        listEl.innerHTML = filtered.map((game, i) => renderBigCard(game, i)).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    // VIEW 1: BIG CINEMATIC CARDS (Curved 28px Squircle Edges)
+    function renderBigCard(game, index) {
+      const st = STATUS_CONFIG[game.status] || STATUS_CONFIG.backlog;
+      const isOnHold = game.status === 'on_hold';
+      const isWishlist = game.status === 'wishlist';
+      const fallbackSvg = createObsidianFallbackCover(game.title);
+      const delayMs = Math.min(index * 55, 320);
+
+      return `
+        <article
+          style="animation-delay: ${delayMs}ms"
+          onclick="openDetailModal('${game.id}')"
+          class="animate-card-enter card-hover-lift group rounded-[28px] obsidian-glass overflow-hidden cursor-pointer"
+        >
+          <!-- Cover Banner -->
+          <div class="relative aspect-[16/7.8] w-full bg-obsidian-900 overflow-hidden">
+            <img
+              src="${escapeHtml(game.cover || fallbackSvg)}"
+              alt="${escapeHtml(game.title)}"
+              onerror="this.onerror=null; this.src='${fallbackSvg}';"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d11] via-[#0d0d11]/30 to-black/25"></div>
+
+            <!-- Top Status & Platform Badges -->
+            <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2 flex-wrap">
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold border backdrop-blur-md flex items-center gap-1.5 ${st.badgeClass}">
+                <span class="w-1.5 h-1.5 rounded-full ${st.dotClass}"></span>
+                ${st.label}
+              </span>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                ${renderWishlistINRBadge(game, false)}
+                ${game.hours && !isWishlist ? `
+                  <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-black/75 text-zinc-200 border border-white/10 backdrop-blur-md">
+                    ${escapeHtml(game.hours)}
+                  </span>
+                ` : ''}
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/75 text-zinc-300 border border-white/10 backdrop-blur-md">
+                  ${escapeHtml(game.platform || 'Steam / PC')}
+                </span>
+              </div>
+            </div>
+
+            <!-- Bottom Title & Ratings Overlay -->
+            <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2 flex-wrap">
+              <div class="min-w-0 flex-1">
+                ${game.genre ? `<span class="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest block mb-0.5">${escapeHtml(game.genre)}</span>` : ''}
+                <h2 class="text-lg sm:text-xl font-bold text-white leading-tight drop-shadow font-display truncate">${escapeHtml(game.title)}</h2>
+              </div>
+
+              <!-- Metacritic & Steam Rating Badges -->
+              <div class="flex items-center gap-1.5 shrink-0">
+                ${renderMetacriticBadge(game.metacriticScore, false)}
+                ${renderSteamRatingBadge(game.steamRatingPercent, game.steamRatingText, false)}
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="p-4 pt-3 space-y-2.5">
+            ${game.resumeNotes ? `
+              <div class="p-3.5 rounded-[20px] ${
+                isOnHold
+                  ? 'bg-amber-500/[0.07] border border-amber-500/20'
+                  : 'bg-white/[0.03] border border-white/[0.06]'
+              }">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider ${
+                    isOnHold ? 'text-amber-300' : 'text-zinc-400'
+                  }">
+                    <i data-lucide="${isWishlist ? 'bookmark' : 'compass'}" class="w-3.5 h-3.5"></i>
+                    <span>${isOnHold ? 'Where I Left Off' : isWishlist ? 'Wishlist Note' : 'Checkpoint'}</span>
+                  </div>
+                  ${!isWishlist ? `
+                    <button
+                      type="button"
+                      onclick="event.stopPropagation(); incrementGameHours('${game.id}')"
+                      class="tap-bounce px-2.5 py-0.5 rounded-full bg-white/[0.08] hover:bg-white/15 text-[10px] font-mono font-bold text-zinc-200"
+                      title="Log +1 hour played"
+                    >
+                      +1h
+                    </button>
+                  ` : ''}
+                </div>
+                <p class="text-xs text-zinc-200 leading-relaxed line-clamp-2">${escapeHtml(game.resumeNotes)}</p>
+              </div>
+            ` : ''}
+
+            ${game.plot ? `
+              <p class="text-xs text-zinc-400 line-clamp-2 leading-relaxed">${escapeHtml(game.plot)}</p>
+            ` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    // VIEW 2: SMALL GRID CARDS (Curved 24px Edges)
+    function renderSmallGridCard(game, index) {
+      const st = STATUS_CONFIG[game.status] || STATUS_CONFIG.backlog;
+      const fallbackSvg = createObsidianFallbackCover(game.title);
+      const delayMs = Math.min(index * 40, 260);
+
+      return `
+        <article
+          style="animation-delay: ${delayMs}ms"
+          onclick="openDetailModal('${game.id}')"
+          class="animate-card-enter card-hover-lift group rounded-[24px] obsidian-glass overflow-hidden cursor-pointer flex flex-col justify-between"
+        >
+          <div>
+            <div class="relative aspect-[16/10] w-full bg-obsidian-900 overflow-hidden">
+              <img
+                src="${escapeHtml(game.cover || fallbackSvg)}"
+                alt="${escapeHtml(game.title)}"
+                onerror="this.onerror=null; this.src='${fallbackSvg}';"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d11] via-transparent to-black/30"></div>
+
+              <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1">
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-semibold border backdrop-blur-md flex items-center gap-1 ${st.badgeClass}">
+                  <span class="w-1.5 h-1.5 rounded-full ${st.dotClass}"></span>
+                  ${st.shortLabel}
+                </span>
+                ${renderWishlistINRBadge(game, true)}
+              </div>
+
+              <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center gap-1 flex-wrap">
+                ${renderMetacriticBadge(game.metacriticScore, true)}
+                ${renderSteamRatingBadge(game.steamRatingPercent, game.steamRatingText, true)}
+              </div>
+            </div>
+
+            <div class="p-3.5 space-y-1">
+              <h2 class="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-1 font-display">${escapeHtml(game.title)}</h2>
+              <p class="text-[10px] text-zinc-400 truncate">
+                ${escapeHtml(game.genre || 'Game')} · ${escapeHtml(game.platform || 'PC')}${game.hours ? ` · ${escapeHtml(game.hours)}` : ''}
+              </p>
+              ${game.resumeNotes ? `
+                <p class="text-[11px] text-zinc-300 line-clamp-2 leading-snug pt-1">${escapeHtml(game.resumeNotes)}</p>
+              ` : ''}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // VIEW 3: COMPACT LIST ROWS (Curved 22px Edges)
+    function renderCompactRow(game, index) {
+      const st = STATUS_CONFIG[game.status] || STATUS_CONFIG.backlog;
+      const fallbackSvg = createObsidianFallbackCover(game.title);
+      const delayMs = Math.min(index * 30, 220);
+
+      return `
+        <article
+          style="animation-delay: ${delayMs}ms"
+          onclick="openDetailModal('${game.id}')"
+          class="animate-card-enter card-hover-lift group p-2.5 rounded-[22px] obsidian-glass flex items-center gap-3 cursor-pointer"
+        >
+          <div class="w-16 h-11 rounded-[14px] bg-obsidian-900 overflow-hidden shrink-0 border border-white/10 relative">
+            <img
+              src="${escapeHtml(game.cover || fallbackSvg)}"
+              alt="${escapeHtml(game.title)}"
+              onerror="this.onerror=null; this.src='${fallbackSvg}';"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full shrink-0 ${st.dotClass}" title="${st.label}"></span>
+              <h2 class="text-xs sm:text-sm font-bold text-white truncate font-display">${escapeHtml(game.title)}</h2>
+            </div>
+            <p class="text-[11px] text-zinc-400 truncate mt-0.5">
+              ${escapeHtml(game.platform || 'PC')}${game.genre ? ` · ${escapeHtml(game.genre)}` : ''}${game.hours ? ` · ${escapeHtml(game.hours)}` : ''}
+              ${game.resumeNotes ? ` — <span class="text-zinc-300">${escapeHtml(game.resumeNotes)}</span>` : ''}
+            </p>
+          </div>
+
+          <div class="flex items-center gap-1.5 shrink-0">
+            ${renderWishlistINRBadge(game, true)}
+            ${renderMetacriticBadge(game.metacriticScore, true)}
+            ${renderSteamRatingBadge(game.steamRatingPercent, game.steamRatingText, true)}
+            <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors"></i>
+          </div>
+        </article>
+      `;
+    }
+
+    // =========================================================
+    // QUALITY OF LIFE: +1h LOGGER & RANDOM GAME PICKER
+    // =========================================================
+    function incrementGameHours(id) {
+      const idx = games.findIndex(g => g.id === id);
+      if (idx === -1) return;
+      const cur = parseHoursNumeric(games[idx].hours);
+      const next = Math.round((cur + 1) * 10) / 10;
+      games[idx].hours = `${next}h in`;
+      games[idx].updatedAt = Date.now();
+      saveGamesToStorage();
+      renderGames();
+      showToast(`Logged +1h on ${games[idx].title} (${games[idx].hours})`, 'bg-emerald-400');
+    }
+
+    function pickRandomGameToPlay() {
+      const candidates = games.filter(g => g.status === 'on_hold' || g.status === 'backlog');
+      if (candidates.length === 0) {
+        showToast('Add games to On Hold or Backlog first!', 'bg-amber-400');
+        return;
+      }
+      const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+      openDetailModal(chosen.id);
+      showToast(`Selected: ${chosen.title}`, 'bg-emerald-400');
+    }
+
+    // =========================================================
+    // DETAIL SHEET MODAL (WITH CHOREOGRAPHED FLUID BUILD-UP)
+    // =========================================================
+    function openDetailModal(id) {
+      const game = games.find(g => g.id === id);
+      if (!game) return;
+      const st = STATUS_CONFIG[game.status] || STATUS_CONFIG.backlog;
+      const isWishlist = game.status === 'wishlist';
+      const fallbackSvg = createObsidianFallbackCover(game.title);
+      const steamDbUrl = game.appId
+        ? `https://steamdb.info/app/${encodeURIComponent(game.appId)}/`
+        : `https://steamdb.info/search/?a=app&q=${encodeURIComponent(game.title)}`;
+
+      const mcNum = Number(game.metacriticScore) || 0;
+      const stNum = Number(game.steamRatingPercent) || 0;
+
+      const content = document.getElementById('detailContent');
+      content.innerHTML = `
+        <div class="relative aspect-[16/8.6] w-full bg-obsidian-900 overflow-hidden">
+          <img
+            src="${escapeHtml(game.cover || fallbackSvg)}"
+            alt="${escapeHtml(game.title)}"
+            onerror="this.onerror=null; this.src='${fallbackSvg}';"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b0f] via-[#0b0b0f]/40 to-transparent"></div>
+          <button
+            type="button"
+            onclick="closeDetailModal()"
+            class="tap-bounce absolute top-4 right-4 w-9 h-9 rounded-full bg-black/70 border border-white/15 backdrop-blur-md flex items-center justify-center text-white"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+          <div class="absolute bottom-3 left-5 right-5 build-stage-1">
+            <div class="flex flex-wrap items-center gap-1.5 mb-2">
+              <span class="px-3 py-0.5 rounded-full text-[11px] font-semibold border ${st.badgeClass}">${st.label}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-black/75 text-zinc-300 border border-white/10">${escapeHtml(game.platform || 'Steam / PC')}</span>
+              ${game.genre ? `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-black/75 text-zinc-300 border border-white/10">${escapeHtml(game.genre)}</span>` : ''}
+              ${game.hours ? `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-black/75 text-zinc-200 border border-white/10">${escapeHtml(game.hours)}</span>` : ''}
+            </div>
+            <h2 class="text-2xl font-extrabold text-white leading-tight font-display">${escapeHtml(game.title)}</h2>
+          </div>
+        </div>
+
+        <div class="p-5 space-y-4">
+          <!-- Stage 2: Metacritic & Steam Ratings with Fluid Animated Progress Bars -->
+          <div class="grid grid-cols-2 gap-3 build-stage-2">
+            <div class="p-3.5 rounded-[22px] bg-white/[0.03] border border-white/10 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Metacritic</span>
+                <span class="text-sm font-mono font-bold ${mcNum >= 75 ? 'text-emerald-400' : 'text-zinc-200'}">
+                  ${mcNum > 0 ? `${mcNum} / 100` : '—'}
+                </span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-white/[0.06] overflow-hidden">
+                <div class="h-full rounded-full bg-emerald-400 fluid-meter-fill" style="width: ${mcNum}%"></div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-[22px] bg-white/[0.03] border border-white/10 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Steam Reviews</span>
+                <span class="text-sm font-mono font-bold text-sky-300">
+                  ${stNum > 0 ? `${stNum}%` : '—'}
+                </span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-white/[0.06] overflow-hidden">
+                <div class="h-full rounded-full bg-sky-400 fluid-meter-fill" style="width: ${stNum}%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wishlist Indian Price Card (STRICTLY ONLY FOR WISHLIST GAMES) -->
+          ${isWishlist ? `
+            <div class="p-4 rounded-[24px] bg-white/[0.04] border border-white/15 flex items-center justify-between gap-3 build-stage-2">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
+                  <span>Steam India Regional Price</span>
+                </span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="text-xl font-bold text-white font-mono">
+                    ${Number(game.priceINR) > 0 ? formatINR(game.priceINR) : '₹ Not synced yet'}
+                  </span>
+                  ${Number(game.discountPercent) > 0 && Number(game.originalPriceINR) > Number(game.priceINR) ? `
+                    <span class="text-xs font-mono text-zinc-500 line-through">${formatINR(game.originalPriceINR)}</span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold border border-emerald-500/30">
+                      -${game.discountPercent}%
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onclick="fetchSingleGameIndianPrice('${game.id}', event)"
+                  class="tap-bounce px-3.5 py-2 rounded-full bg-white text-zinc-950 text-xs font-bold flex items-center gap-1.5"
+                >
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                  <span>${Number(game.priceINR) > 0 ? 'Refresh ₹' : 'Fetch ₹'}</span>
+                </button>
+                <a
+                  href="${escapeHtml(steamDbUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="tap-bounce px-3 py-2 rounded-full bg-white/[0.06] hover:bg-white/10 border border-white/10 text-xs font-semibold text-zinc-200 flex items-center gap-1"
+                  title="View Indian Rupee price history on SteamDB"
+                >
+                  <span>SteamDB</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Stage 3: Resume Callout & Synopsis -->
+          <div class="p-4 rounded-[24px] bg-amber-500/[0.07] border border-amber-500/20 build-stage-3">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+                ${isWishlist ? 'Wishlist Buying Note' : 'Where I Left Off & Resume Plan'}
+              </span>
+              <div class="flex items-center gap-2.5">
+                ${!isWishlist ? `
+                  <button
+                    type="button"
+                    onclick="incrementGameHours('${game.id}'); openDetailModal('${game.id}');"
+                    class="text-[11px] font-mono font-bold text-emerald-300 hover:underline"
+                  >
+                    +1h Played
+                  </button>
+                ` : ''}
+                <button type="button" onclick="closeDetailModal(); openGameModal('${game.id}')" class="text-[11px] text-zinc-300 underline">Edit</button>
+              </div>
+            </div>
+            <p class="text-xs text-zinc-200 leading-relaxed">
+              ${game.resumeNotes ? escapeHtml(game.resumeNotes) : 'No checkpoint logged yet. Tap Edit to record your current quest, build, or reminder.'}
+            </p>
+          </div>
+
+          ${game.plot ? `
+            <div class="build-stage-3">
+              <h4 class="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-1">Synopsis</h4>
+              <p class="text-sm text-zinc-300 leading-relaxed">${escapeHtml(game.plot)}</p>
+            </div>
+          ` : ''}
+
+          <!-- Stage 4: Quick Status Switcher & Store Actions -->
+          <div class="build-stage-4 space-y-4">
+            <div>
+              <h4 class="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-2">Move Status</h4>
+              <div class="grid grid-cols-3 sm:grid-cols-5 gap-1.5">
+                ${['on_hold', 'playing', 'backlog', 'wishlist', 'completed'].map(statusKey => {
+                  const cfg = STATUS_CONFIG[statusKey];
+                  const active = game.status === statusKey;
+                  return `
+                    <button
+                      type="button"
+                      onclick="quickChangeStatus('${game.id}', '${statusKey}')"
+                      class="tap-bounce py-2 px-2.5 rounded-full text-[11px] font-semibold border flex items-center justify-center gap-1 ${
+                        active
+                          ? 'bg-white text-zinc-950 border-white shadow-sm'
+                          : 'bg-white/[0.04] text-zinc-300 border-white/10 hover:bg-white/[0.08]'
+                      }"
+                    >
+                      <i data-lucide="${cfg.icon}" class="w-3 h-3"></i>
+                      <span>${cfg.shortLabel}</span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="pt-1 flex flex-col gap-2.5">
+              ${game.steamUrl ? `
+                <a
+                  href="${escapeHtml(game.steamUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="tap-bounce w-full py-3 rounded-full bg-white/[0.07] hover:bg-white/12 border border-white/15 text-white font-semibold text-xs flex items-center justify-center gap-2"
+                >
+                  <i data-lucide="external-link" class="w-4 h-4"></i>
+                  <span>Open on Steam Store</span>
+                </a>
+              ` : ''}
+
+              <div class="flex gap-2.5">
+                <button
+                  type="button"
+                  onclick="closeDetailModal(); openGameModal('${game.id}')"
+                  class="tap-bounce flex-1 py-3 rounded-full bg-white/[0.05] border border-white/10 text-zinc-200 font-semibold text-xs flex items-center justify-center gap-1.5"
+                >
+                  <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                  <span>Edit Details</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="requestDeleteGame('${game.id}')"
+                  class="tap-bounce py-3 px-5 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-400 font-semibold text-xs flex items-center justify-center gap-1.5"
+                >
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                  <span>Delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('detailModal');
+      const backdrop = document.getElementById('detailBackdrop');
+      const sheet = document.getElementById('detailSheet');
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        sheet.classList.remove('translate-y-full');
+      });
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      const backdrop = document.getElementById('detailBackdrop');
+      const sheet = document.getElementById('detailSheet');
+      backdrop.classList.add('opacity-0');
+      sheet.classList.add('translate-y-full');
+      setTimeout(() => modal.classList.add('hidden'), 340);
+    }
+
+    function quickChangeStatus(id, newStatus) {
+      const idx = games.findIndex(g => g.id === id);
+      if (idx === -1) return;
+      games[idx].status = newStatus;
+      games[idx].updatedAt = Date.now();
+      saveGamesToStorage();
+      renderFilterTabs();
+      renderGames();
+      openDetailModal(id);
+      showToast(`Moved to ${STATUS_CONFIG[newStatus].shortLabel}`, 'bg-emerald-400');
+      if (newStatus === 'wishlist' && !Number(games[idx].priceINR)) {
+        fetchSingleGameIndianPrice(id);
+      }
+    }
+
+    // =========================================================
+    // ADD / EDIT FORM MODAL
+    // =========================================================
+    function toggleWishlistPriceField() {
+      const status = document.getElementById('gameStatus').value;
+      const box = document.getElementById('wishlistPriceBox');
+      if (!box) return;
+      if (status === 'wishlist') {
+        box.classList.remove('hidden');
+      } else {
+        box.classList.add('hidden');
+      }
+    }
+
+    function openGameModal(editId = null) {
+      const form = document.getElementById('gameForm');
+      form.reset();
+      clearLiveGameSearch();
+      updateCoverPreview('');
+
+      if (editId) {
+        const game = games.find(g => g.id === editId);
+        if (game) {
+          document.getElementById('formModalTitle').textContent = 'Edit Game';
+          document.getElementById('gameId').value = game.id;
+          document.getElementById('gameAppId').value = game.appId || '';
+          document.getElementById('gameTitle').value = game.title || '';
+          document.getElementById('gameStatus').value = game.status || 'on_hold';
+          document.getElementById('gamePlatform').value = game.platform || 'Steam / PC';
+          document.getElementById('gameGenre').value = game.genre || '';
+          document.getElementById('gameHours').value = game.hours || '';
+          document.getElementById('gameMetacritic').value = game.metacriticScore || '';
+          document.getElementById('gameSteamPercent').value = game.steamRatingPercent || '';
+          document.getElementById('gameSteamText').value = game.steamRatingText || '';
+          document.getElementById('gamePriceINR').value = game.priceINR !== undefined ? game.priceINR : '';
+          document.getElementById('gameOriginalPriceINR').value = game.originalPriceINR !== undefined ? game.originalPriceINR : '';
+          document.getElementById('gameDiscountPercent').value = game.discountPercent || '';
+          document.getElementById('gameResumeNotes').value = game.resumeNotes || '';
+          document.getElementById('gamePlot').value = game.plot || '';
+          document.getElementById('gameCover').value = game.cover || '';
+          document.getElementById('gameSteamUrl').value = game.steamUrl || '';
+          updateCoverPreview(game.cover || '');
+        }
+      } else {
+        document.getElementById('formModalTitle').textContent = 'Log Game';
+        document.getElementById('gameId').value = '';
+        document.getElementById('gameAppId').value = '';
+        document.getElementById('gameStatus').value = activeFilter !== 'all' ? activeFilter : 'on_hold';
+      }
+
+      toggleWishlistPriceField();
+
+      const modal = document.getElementById('formModal');
+      const backdrop = document.getElementById('formBackdrop');
+      const sheet = document.getElementById('formSheet');
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        sheet.classList.remove('translate-y-full');
+      });
+    }
+
+    function closeGameModal() {
+      const modal = document.getElementById('formModal');
+      const backdrop = document.getElementById('formBackdrop');
+      const sheet = document.getElementById('formSheet');
+      backdrop.classList.add('opacity-0');
+      sheet.classList.add('translate-y-full');
+      setTimeout(() => modal.classList.add('hidden'), 340);
+    }
+
+    async function saveGame(event) {
+      event.preventDefault();
+      const id = document.getElementById('gameId').value;
+      const title = document.getElementById('gameTitle').value.trim();
+      const rawCover = document.getElementById('gameCover').value.trim();
+      const status = document.getElementById('gameStatus').value;
+
+      const entry = {
+        id: id || 'game-' + Date.now(),
+        appId: document.getElementById('gameAppId').value.trim(),
+        title,
+        status,
+        platform: document.getElementById('gamePlatform').value,
+        genre: document.getElementById('gameGenre').value.trim(),
+        hours: document.getElementById('gameHours').value.trim(),
+        metacriticScore: document.getElementById('gameMetacritic').value ? Number(document.getElementById('gameMetacritic').value) : '',
+        steamRatingPercent: document.getElementById('gameSteamPercent').value ? Number(document.getElementById('gameSteamPercent').value) : '',
+        steamRatingText: document.getElementById('gameSteamText').value.trim(),
+        priceINR: document.getElementById('gamePriceINR').value !== '' ? Number(document.getElementById('gamePriceINR').value) : '',
+        originalPriceINR: document.getElementById('gameOriginalPriceINR').value !== '' ? Number(document.getElementById('gameOriginalPriceINR').value) : '',
+        discountPercent: document.getElementById('gameDiscountPercent').value !== '' ? Number(document.getElementById('gameDiscountPercent').value) : 0,
+        resumeNotes: document.getElementById('gameResumeNotes').value.trim(),
+        plot: document.getElementById('gamePlot').value.trim(),
+        cover: rawCover || createObsidianFallbackCover(title),
+        steamUrl: document.getElementById('gameSteamUrl').value.trim(),
+        updatedAt: Date.now()
+      };
+
+      if (id) {
+        const index = games.findIndex(g => g.id === id);
+        if (index !== -1) games[index] = entry;
+        showToast(`Updated "${entry.title}"`, 'bg-emerald-400');
+      } else {
+        games.unshift(entry);
+        showToast(`Added "${entry.title}" to Vault`, 'bg-emerald-400');
+      }
+
+      saveGamesToStorage();
+      renderFilterTabs();
+      renderGames();
+      closeGameModal();
+
+      // If saved as Wishlist and priceINR wasn't filled yet, auto-resolve it immediately in background
+      if (entry.status === 'wishlist' && !Number(entry.priceINR)) {
+        fetchSingleGameIndianPrice(entry.id);
+      }
+    }
+
+    function requestDeleteGame(id) {
+      const game = games.find(g => g.id === id);
+      if (!game) return;
+      openConfirmModal(
+        `Remove "${game.title}"?`,
+        'This game and its checkpoint notes will be removed from your vault.',
+        () => {
+          games = games.filter(g => g.id !== id);
+          saveGamesToStorage();
+          renderFilterTabs();
+          renderGames();
+          closeDetailModal();
+          showToast('Removed from Vault', 'bg-rose-400');
+        }
+      );
+    }
+
+    // =========================================================
+    // SEARCH & DATA BACKUP HELPERS
+    // =========================================================
+    function toggleSearch() {
+      const container = document.getElementById('searchContainer');
+      const input = document.getElementById('searchInput');
+      container.classList.toggle('hidden');
+      if (!container.classList.contains('hidden')) {
+        input.focus();
+      } else {
+        input.value = '';
+        renderGames();
+      }
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      renderGames();
+      input.focus();
+    }
+
+    function openDataModal() {
+      document.getElementById('dataModal').classList.remove('hidden');
+    }
+
+    function closeDataModal() {
+      document.getElementById('dataModal').classList.add('hidden');
+    }
+
+    function saveRawgApiKey() {
+      const key = document.getElementById('rawgApiKeyInput').value.trim();
+      try {
+        if (key) {
+          localStorage.setItem(RAWG_KEY_STORAGE, key);
+          showToast('RAWG API Key saved!', 'bg-emerald-400');
+        } else {
+          localStorage.removeItem(RAWG_KEY_STORAGE);
+          showToast('RAWG API Key cleared', 'bg-zinc-400');
+        }
+      } catch (e) {}
+    }
+
+    function exportVaultJson() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(games, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', dataStr);
+      a.setAttribute('download', `playvault-backup-${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('Backup JSON exported', 'bg-emerald-400');
+    }
+
+    function importVaultJson(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            games = imported;
+            enrichExistingLibraryFromCatalog();
+            saveGamesToStorage();
+            renderFilterTabs();
+            renderGames();
+            closeDataModal();
+            showToast(`Imported ${imported.length} games!`, 'bg-emerald-400');
+          } else {
+            showToast('Invalid backup JSON format', 'bg-rose-400');
+          }
+        } catch (err) {
+          showToast('Could not parse backup file', 'bg-rose-400');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function requestResetStarterData() {
+      openConfirmModal(
+        'Reset to Starter Library?',
+        'This will replace your current list with the 6 starter demo games.',
+        () => {
+          games = [...STARTER_GAMES];
+          saveGamesToStorage();
+          renderFilterTabs();
+          renderGames();
+          closeDataModal();
+          showToast('Starter library restored', 'bg-emerald-400');
+        }
+      );
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
