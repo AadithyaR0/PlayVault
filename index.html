@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PlayVault" />
+  <meta name="theme-color" content="#09090b" />
+  <title>PlayVault — Game Backlog & Resume Tracker</title>
+
+  <!-- Inline Web App Manifest for iPhone / PWA Home Screen Installation -->
+  <link rel="manifest" href='data:application/manifest+json,{"name":"PlayVault","short_name":"PlayVault","display":"standalone","background_color":"#09090b","theme_color":"#09090b","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/808/808439.png","sizes":"512x512","type":"image/png"}]}' />
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/808/808439.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: '#09090b',
+            surface: '#121216',
+            card: '#18181f',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Inter', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --sat: env(safe-area-inset-top, 20px);
+      --sab: env(safe-area-inset-bottom, 20px);
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    input, textarea, select {
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    body {
+      background-color: #09090b;
+      color: #f4f4f5;
+      overscroll-behavior-y: none;
+      padding-top: max(14px, var(--sat));
+      padding-bottom: calc(104px + var(--sab));
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+    }
+
+    /* Hide scrollbars for horizontal chip strips */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* iOS Sheet & Card Transitions */
+    .sheet-backdrop {
+      transition: opacity 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .bottom-sheet {
+      transition: transform 0.34s cubic-bezier(0.32, 0.72, 0, 1);
+      padding-bottom: max(24px, var(--sab));
+    }
+
+    .tap-bounce {
+      transition: transform 0.14s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.14s ease, background-color 0.15s ease;
+    }
+    .tap-bounce:active {
+      transform: scale(0.96);
+    }
+
+    /* Subtle Ambient OLED Glow */
+    .ambient-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.18), rgba(245, 158, 11, 0.06) 45%, transparent 72%);
+    }
+
+    /* Dynamic Island Toast Animation */
+    #toastBanner {
+      transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.25s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-violet-500 selection:text-white relative overflow-x-hidden">
+
+  <!-- Ambient Top Background Glow -->
+  <div class="fixed inset-0 pointer-events-none ambient-glow z-0"></div>
+
+  <!-- Dynamic Island Style Toast Notification -->
+  <div
+    id="toastBanner"
+    class="fixed left-1/2 -translate-x-1/2 z-[100] pointer-events-none opacity-0 -translate-y-8"
+    style="top: max(12px, var(--sat));"
+  >
+    <div class="px-4 py-2.5 rounded-full bg-zinc-900/95 border border-white/15 shadow-2xl shadow-black/80 backdrop-blur-xl flex items-center gap-2.5 text-xs font-semibold text-white whitespace-nowrap">
+      <span id="toastDot" class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+      <span id="toastMessage">Saved to PlayVault</span>
+    </div>
+  </div>
+
+  <!-- Main App Shell -->
+  <div class="relative z-10 max-w-md mx-auto px-4">
+
+    <!-- Top Header -->
+    <header class="pt-2 pb-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-700 flex items-center justify-center shadow-lg shadow-violet-600/30 border border-white/20">
+          <i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-extrabold tracking-tight text-white leading-none">PlayVault</h1>
+            <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md bg-violet-500/15 text-violet-300 border border-violet-500/25">iOS</span>
+          </div>
+          <p class="text-xs text-zinc-400 mt-1" id="headerSubtitle">Loading library...</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          onclick="toggleSearch()"
+          class="tap-bounce w-9 h-9 rounded-full bg-zinc-900/90 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white"
+          title="Filter Library"
+          aria-label="Filter Library"
+        >
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </button>
+        <button
+          onclick="openDataModal()"
+          class="tap-bounce w-9 h-9 rounded-full bg-zinc-900/90 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white"
+          title="Settings & Backup"
+          aria-label="Settings & Backup"
+        >
+          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Collapsible Library Search Bar -->
+    <div id="searchContainer" class="hidden mb-3.5 transition-all">
+      <div class="relative">
+        <i data-lucide="search" class="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Filter your vault by title, genre, or checkpoint..."
+          oninput="renderGames()"
+          class="w-full bg-zinc-900/90 border border-zinc-800 focus:border-violet-500/60 rounded-2xl pl-10 pr-9 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none"
+        />
+        <button onclick="clearSearch()" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Summary Strip -->
+    <div class="grid grid-cols-3 gap-2.5 mb-4">
+      <button
+        onclick="setFilter('on_hold')"
+        class="tap-bounce text-left p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25 backdrop-blur-md hover:bg-amber-500/15"
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Revisit</span>
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
+        </div>
+        <p id="statOnHold" class="text-xl font-extrabold text-white mt-0.5">0</p>
+        <p class="text-[10px] text-amber-200/60 mt-0.5 truncate">Paused &amp; saved</p>
+      </button>
+
+      <button
+        onclick="setFilter('backlog')"
+        class="tap-bounce text-left p-3 rounded-2xl bg-violet-500/10 border border-violet-500/25 backdrop-blur-md hover:bg-violet-500/15"
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-violet-400">Backlog</span>
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+        </div>
+        <p id="statBacklog" class="text-xl font-extrabold text-white mt-0.5">0</p>
+        <p class="text-[10px] text-violet-200/60 mt-0.5 truncate">Want to play</p>
+      </button>
+
+      <button
+        onclick="setFilter('playing')"
+        class="tap-bounce text-left p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 backdrop-blur-md hover:bg-emerald-500/15"
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Playing</span>
+          <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+        </div>
+        <p id="statPlaying" class="text-xl font-extrabold text-white mt-0.5">0</p>
+        <p class="text-[10px] text-emerald-200/60 mt-0.5 truncate">In rotation</p>
+      </button>
+    </div>
+
+    <!-- Segmented Filter Tabs -->
+    <div class="sticky top-2 z-20 py-2 -mx-4 px-4 bg-background/85 backdrop-blur-xl border-b border-white/5 mb-4">
+      <div id="filterTabs" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- Game Cards List -->
+    <main id="gamesList" class="space-y-4">
+      <!-- Populated dynamically -->
+    </main>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden py-16 text-center">
+      <div class="w-14 h-14 rounded-3xl bg-zinc-900 border border-zinc-800 mx-auto flex items-center justify-center text-zinc-500 mb-3">
+        <i data-lucide="gamepad" class="w-7 h-7"></i>
+      </div>
+      <h3 class="text-base font-semibold text-zinc-200">No games in this view</h3>
+      <p class="text-xs text-zinc-500 max-w-xs mx-auto mt-1 leading-relaxed">
+        Tap <span class="text-violet-400 font-semibold">+ Log Game</span> below and type any title to auto-fetch its cover artwork and plot.
+      </p>
+    </div>
+  </div>
+
+  <!-- Floating Action Button (FAB) -->
+  <div class="fixed right-5 z-30" style="bottom: calc(20px + var(--sab));">
+    <button
+      onclick="openGameModal()"
+      class="tap-bounce flex items-center gap-2 px-5 h-14 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold text-sm shadow-xl shadow-violet-600/40 border border-white/20"
+    >
+      <i data-lucide="plus" class="w-5 h-5"></i>
+      <span>Log Game</span>
+    </button>
+  </div>
+
+  <!-- =========================================================
+       MODAL 1: GAME DETAIL BOTTOM SHEET
+       ========================================================= -->
+  <div id="detailModal" class="fixed inset-0 z-40 hidden">
+    <div onclick="closeDetailModal()" id="detailBackdrop" class="sheet-backdrop absolute inset-0 bg-black/75 backdrop-blur-sm opacity-0"></div>
+    <div id="detailSheet" class="bottom-sheet absolute inset-x-0 bottom-0 max-w-md mx-auto bg-zinc-950 border-t border-white/10 rounded-t-3xl max-h-[88vh] overflow-y-auto translate-y-full">
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 2: ADD / EDIT GAME BOTTOM SHEET (WITH LIVE SEARCH)
+       ========================================================= -->
+  <div id="formModal" class="fixed inset-0 z-50 hidden">
+    <div onclick="closeGameModal()" id="formBackdrop" class="sheet-backdrop absolute inset-0 bg-black/75 backdrop-blur-sm opacity-0"></div>
+    <div id="formSheet" class="bottom-sheet absolute inset-x-0 bottom-0 max-w-md mx-auto bg-zinc-950 border-t border-white/10 rounded-t-3xl max-h-[92vh] overflow-y-auto translate-y-full px-5 pt-3">
+      <!-- Drag Handle -->
+      <div class="w-10 h-1.5 bg-zinc-800 rounded-full mx-auto mb-3.5"></div>
+
+      <div class="flex items-center justify-between mb-3.5">
+        <div>
+          <h2 id="formModalTitle" class="text-lg font-bold text-white leading-tight">Log Game</h2>
+          <p class="text-[11px] text-zinc-400">Search any game to auto-fetch artwork &amp; plot synopsis</p>
+        </div>
+        <button onclick="closeGameModal()" class="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- LIVE GAME SEARCH ENGINE -->
+      <div class="p-3.5 rounded-2xl bg-gradient-to-b from-violet-950/30 to-zinc-900/90 border border-violet-500/25 mb-4 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-violet-300 flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+            Live Game Search (Steam + Wiki + Catalog)
+          </span>
+          <span id="liveSearchStatus" class="text-[10px] text-zinc-400">Type any game title</span>
+        </div>
+
+        <!-- Search Input Box -->
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-violet-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          <input
+            id="liveGameSearchInput"
+            type="text"
+            autocomplete="off"
+            placeholder="Search e.g. Hades II, Clair Obscur, Persona 5, or Steam ID..."
+            oninput="handleLiveGameSearchInput(this.value)"
+            class="w-full bg-zinc-950/90 border border-zinc-800 focus:border-violet-500 rounded-xl pl-9 pr-9 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none"
+          />
+          <!-- Spinner / Clear Button -->
+          <div id="liveSearchSpinner" class="hidden absolute right-3 top-1/2 -translate-y-1/2">
+            <div class="w-4 h-4 border-2 border-violet-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+          <button
+            type="button"
+            id="liveSearchClearBtn"
+            onclick="clearLiveGameSearch()"
+            class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Live Search Results Dropdown List -->
+        <div id="liveSearchResults" class="hidden max-h-60 overflow-y-auto divide-y divide-zinc-800/70 rounded-xl bg-zinc-950 border border-zinc-800">
+          <!-- Dynamically populated search results -->
+        </div>
+
+        <!-- Quick Starter Presets Strip -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-0.5" id="quickPresetChips">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- ADD / EDIT FORM -->
+      <form id="gameForm" onsubmit="saveGame(event)" class="space-y-3.5 pb-4">
+        <input type="hidden" id="gameId" />
+
+        <!-- Live Cover Art Preview Card -->
+        <div id="coverPreviewContainer" class="hidden relative aspect-[16/7.5] w-full rounded-2xl overflow-hidden bg-zinc-900 border border-white/10">
+          <img
+            id="coverPreviewImg"
+            src=""
+            alt="Cover Preview"
+            onerror="document.getElementById('coverPreviewContainer').classList.add('hidden')"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded-md bg-black/65 border border-white/10 text-[10px] font-semibold text-emerald-300 flex items-center gap-1">
+              <i data-lucide="image" class="w-3 h-3"></i>
+              Cover Artwork Ready
+            </span>
+            <span id="metadataFetchBadge" class="hidden px-2 py-0.5 rounded-md bg-violet-600/80 text-[10px] font-semibold text-white animate-pulse">
+              Fetching plot synopsis...
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-zinc-400 mb-1">Game Title *</label>
+          <input
+            id="gameTitle"
+            type="text"
+            required
+            placeholder="e.g., Elden Ring"
+            class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Status</label>
+            <select
+              id="gameStatus"
+              class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
+            >
+              <option value="on_hold">⏸ On Hold / Revisit</option>
+              <option value="backlog">✨ Backlog (Want to Play)</option>
+              <option value="playing">▶️ Currently Playing</option>
+              <option value="completed">🏆 Completed</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Platform</label>
+            <select
+              id="gamePlatform"
+              class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
+            >
+              <option value="Steam / PC">Steam / PC</option>
+              <option value="Steam Deck">Steam Deck</option>
+              <option value="PS5">PS5</option>
+              <option value="Nintendo Switch">Nintendo Switch</option>
+              <option value="Xbox Series X">Xbox Series X</option>
+              <option value="iOS / Mobile">iOS / Mobile</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Genre</label>
+            <input
+              id="gameGenre"
+              type="text"
+              placeholder="e.g., Action RPG"
+              class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Hours Logged (Optional)</label>
+            <input
+              id="gameHours"
+              type="text"
+              placeholder="e.g., 24h in"
+              class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+            />
+          </div>
+        </div>
+
+        <!-- Dedicated Resume / Checkpoint Box -->
+        <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25">
+          <label class="flex items-center gap-1.5 text-xs font-semibold text-amber-300 mb-1">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Where I Left Off / Why Return
+          </label>
+          <textarea
+            id="gameResumeNotes"
+            rows="2"
+            placeholder="e.g., Paused at Leyndell capital. Using a Dex/Bleed katana build — need to finish Ranni's questline next."
+            class="w-full bg-zinc-950/80 border border-amber-500/20 rounded-xl px-3 py-2 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-400"
+          ></textarea>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-xs font-medium text-zinc-400">Plot / Synopsis</label>
+            <button
+              type="button"
+              onclick="fetchPlotForCurrentTitle()"
+              class="text-[11px] font-medium text-violet-400 hover:text-violet-300 flex items-center gap-1"
+            >
+              <i data-lucide="wand-2" class="w-3 h-3"></i>
+              <span>Auto-Fetch Plot</span>
+            </button>
+          </div>
+          <textarea
+            id="gamePlot"
+            rows="3"
+            placeholder="Storyline summary or what drew you to this game..."
+            class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2.5">
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Cover Artwork URL</label>
+            <input
+              id="gameCover"
+              type="url"
+              oninput="updateCoverPreview(this.value)"
+              placeholder="https://shared.akamai.steamstatic.com/store_item_assets/..."
+              class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2 text-xs text-zinc-300 placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Steam Store Link (Optional)</label>
+            <input
+              id="gameSteamUrl"
+              type="url"
+              placeholder="https://store.steampowered.com/app/..."
+              class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2 text-xs text-zinc-300 placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+            />
+          </div>
+        </div>
+
+        <div class="pt-2 flex gap-2.5">
+          <button
+            type="button"
+            onclick="closeGameModal()"
+            class="tap-bounce flex-1 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 font-semibold text-sm"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="tap-bounce flex-1 py-3 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-violet-600/30"
+          >
+            Save to Vault
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 3: SETTINGS, API KEYS & DATA BACKUP SHEET
+       ========================================================= -->
+  <div id="dataModal" class="fixed inset-0 z-50 hidden">
+    <div onclick="closeDataModal()" class="sheet-backdrop absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div class="bottom-sheet absolute inset-x-0 bottom-0 max-w-md mx-auto bg-zinc-950 border-t border-white/10 rounded-t-3xl p-5 space-y-4 max-h-[88vh] overflow-y-auto">
+      <div class="w-10 h-1.5 bg-zinc-800 rounded-full mx-auto"></div>
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-white">Vault Memory &amp; Search Settings</h3>
+        <button onclick="closeDataModal()" class="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-zinc-400 leading-relaxed">
+        Your library is automatically saved in your iPhone's local storage. Live Game Search works out-of-the-box using Steam Store + Wikipedia APIs with zero keys required.
+      </p>
+
+      <!-- Optional RAWG API Key Configuration -->
+      <div class="p-3.5 rounded-2xl bg-zinc-900/90 border border-zinc-800 space-y-2">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-semibold text-violet-300 flex items-center gap-1.5">
+            <i data-lucide="key" class="w-3.5 h-3.5"></i>
+            Optional RAWG.io API Key
+          </label>
+          <span class="text-[10px] text-zinc-500">Optional Add-on</span>
+        </div>
+        <div class="flex gap-2">
+          <input
+            id="rawgApiKeyInput"
+            type="password"
+            placeholder="Paste optional RAWG API key..."
+            class="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500"
+          />
+          <button
+            type="button"
+            onclick="saveRawgApiKey()"
+            class="tap-bounce px-3.5 py-2 rounded-xl bg-violet-600 text-white text-xs font-semibold"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+
+      <!-- Backup & Restore Actions -->
+      <div class="space-y-2.5">
+        <button onclick="exportVaultJson()" class="tap-bounce w-full py-3 px-4 rounded-2xl bg-zinc-900 border border-zinc-800 text-left flex items-center justify-between text-sm text-zinc-200">
+          <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-violet-400"></i> Export Vault Backup (.json)</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-500"></i>
+        </button>
+
+        <label class="tap-bounce w-full py-3 px-4 rounded-2xl bg-zinc-900 border border-zinc-800 text-left flex items-center justify-between text-sm text-zinc-200 cursor-pointer">
+          <span class="flex items-center gap-2.5"><i data-lucide="upload" class="w-4 h-4 text-emerald-400"></i> Import Vault Backup (.json)</span>
+          <input type="file" accept=".json" onchange="importVaultJson(event)" class="hidden" />
+          <i data-lucide="chevron-right" class="w-4 h-4 text-zinc-500"></i>
+        </label>
+
+        <button onclick="requestResetStarterData()" class="tap-bounce w-full py-3 px-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-left flex items-center justify-between text-sm text-rose-300">
+          <span class="flex items-center gap-2.5"><i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset to Demo Starter Games</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-rose-400"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 4: CUSTOM iOS CONFIRMATION SHEET (NO NATIVE CONFIRM)
+       ========================================================= -->
+  <div id="confirmModal" class="fixed inset-0 z-[90] hidden flex items-end sm:items-center justify-center p-4">
+    <div onclick="closeConfirmModal()" class="sheet-backdrop absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div class="relative z-10 w-full max-w-sm rounded-3xl bg-zinc-900 border border-white/10 p-5 text-center shadow-2xl space-y-4">
+      <div class="w-11 h-11 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 mx-auto">
+        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <h4 id="confirmTitle" class="text-base font-bold text-white">Are you sure?</h4>
+        <p id="confirmMessage" class="text-xs text-zinc-400 mt-1 leading-relaxed"></p>
+      </div>
+      <div class="flex gap-2.5">
+        <button
+          type="button"
+          onclick="closeConfirmModal()"
+          class="tap-bounce flex-1 py-2.5 rounded-2xl bg-zinc-800 text-zinc-300 text-xs font-semibold"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          id="confirmActionBtn"
+          class="tap-bounce flex-1 py-2.5 rounded-2xl bg-rose-600 text-white text-xs font-semibold shadow-lg shadow-rose-600/30"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================
+    // STORAGE KEYS & CONFIGURATION
+    // =========================================================
+    const STORAGE_KEY = 'playvault_games_v1';
+    const RAWG_KEY_STORAGE = 'playvault_rawg_api_key';
+
+    const STATUS_CONFIG = {
+      all: { label: 'All Games', pillClass: 'bg-zinc-800 text-zinc-200', icon: 'layers' },
+      on_hold: {
+        label: 'On Hold / Revisit',
+        shortLabel: 'On Hold',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+        dotClass: 'bg-amber-400',
+        icon: 'rotate-ccw'
+      },
+      backlog: {
+        label: 'Backlog',
+        shortLabel: 'Backlog',
+        badgeClass: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+        dotClass: 'bg-violet-400',
+        icon: 'sparkles'
+      },
+      playing: {
+        label: 'Playing',
+        shortLabel: 'Playing',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+        dotClass: 'bg-emerald-400',
+        icon: 'play'
+      },
+      completed: {
+        label: 'Completed',
+        shortLabel: 'Completed',
+        badgeClass: 'bg-sky-500/20 text-sky-300 border-sky-500/30',
+        dotClass: 'bg-sky-400',
+        icon: 'trophy'
+      }
+    };
+
+    // Rich Instant Catalog for Zero-Latency Matching & Quick Chips
+    const CURATED_GAMES_DB = [
+      {
+        appId: '1245620',
+        title: 'Elden Ring',
+        genre: 'Action RPG',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+        plot: 'Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.'
+      },
+      {
+        appId: '1091500',
+        title: 'Cyberpunk 2077',
+        genre: 'Sci-Fi Action RPG',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+        plot: 'An open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.'
+      },
+      {
+        appId: '367520',
+        title: 'Hollow Knight',
+        genre: 'Metroidvania',
+        platform: 'Steam Deck',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/367520/Hollow_Knight/',
+        plot: 'Forge your own path in Hollow Knight! An epic action adventure through a vast ruined subterranean kingdom of insects and heroes.'
+      },
+      {
+        appId: '1030300',
+        title: 'Hollow Knight: Silksong',
+        genre: 'Metroidvania',
+        platform: 'Steam Deck',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1030300/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/',
+        plot: 'As the lethal hunter Hornet, adventure through a whole new kingdom haunted by silk and song. Capture beasts, solve ancient mysteries, and ascend to the peak.'
+      },
+      {
+        appId: '1086940',
+        title: "Baldur's Gate 3",
+        genre: 'CRPG',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+        plot: 'Gather your party and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power.'
+      },
+      {
+        appId: '1145350',
+        title: 'Hades II',
+        genre: 'Roguelike Action',
+        platform: 'Steam Deck',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145350/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1145350/Hades_II/',
+        plot: 'Battle beyond the Underworld using dark sorcery to take on the Titan of Time in this bewitching sequel to the award-winning rogue-like dungeon crawler.'
+      },
+      {
+        appId: '1903340',
+        title: 'Clair Obscur: Expedition 33',
+        genre: 'Turn-Based RPG',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1903340/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1903340/Clair_Obscur_Expedition_33/',
+        plot: 'Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again in this reactive turn-based RPG.'
+      },
+      {
+        appId: '1174180',
+        title: 'Red Dead Redemption 2',
+        genre: 'Open World Western',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/',
+        plot: 'Arthur Morgan and the Van der Linde gang are outlaws on the run across America in 1899 as federal agents and bounty hunters mass on their heels.'
+      },
+      {
+        appId: '632470',
+        title: 'Disco Elysium',
+        genre: 'Narrative RPG',
+        platform: 'Steam Deck',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/632470/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/632470/Disco_Elysium__The_Final_Cut/',
+        plot: 'A groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city block to carve your path across.'
+      },
+      {
+        appId: '292030',
+        title: 'The Witcher 3: Wild Hunt',
+        genre: 'Open World RPG',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/',
+        plot: 'You are Geralt of Rivia, mercenary monster slayer. Before you stands a war-torn, monster-infested continent you can explore at will to find Ciri, the Child of Prophecy.'
+      },
+      {
+        appId: '1687950',
+        title: 'Persona 5 Royal',
+        genre: 'JRPG',
+        platform: 'Steam Deck',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1687950/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1687950/Persona_5_Royal/',
+        plot: 'Don the mask and join the Phantom Thieves of Hearts as they stage grand heists, infiltrate the minds of the corrupt, and make them change their ways.'
+      },
+      {
+        appId: '814380',
+        title: 'Sekiro: Shadows Die Twice',
+        genre: 'Action Adventure',
+        platform: 'Steam / PC',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/',
+        plot: 'Carve your own clever path to vengeance in this critically acclaimed adventure from developer FromSoftware, creators of Bloodborne and Dark Souls.'
+      }
+    ];
+
+    // Pre-Populated Starter Library
+    const STARTER_GAMES = [
+      {
+        id: 'starter-1',
+        title: 'Elden Ring',
+        status: 'on_hold',
+        platform: 'Steam / PC',
+        genre: 'Action RPG',
+        hours: '38h in',
+        resumeNotes: 'Dropped right after beating Starscourge Radahn. Need to head into the Nokron crater for Ranni’s questline. Running a +9 Bloodhound’s Fang Dex build.',
+        plot: 'Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+        updatedAt: Date.now() - 3600 * 1000 * 5
+      },
+      {
+        id: 'starter-2',
+        title: 'Cyberpunk 2077',
+        status: 'on_hold',
+        platform: 'Steam / PC',
+        genre: 'Sci-Fi Action RPG',
+        hours: '16h in',
+        resumeNotes: 'Paused at the start of Phantom Liberty (Dogtown entrance). Remember to test out the new Sandevistan + Throwing Knives cyberware setup.',
+        plot: 'An open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+        updatedAt: Date.now() - 3600 * 1000 * 18
+      },
+      {
+        id: 'starter-3',
+        title: 'Hollow Knight',
+        status: 'backlog',
+        platform: 'Steam Deck',
+        genre: 'Metroidvania',
+        hours: '0h',
+        resumeNotes: 'Saved for upcoming flights and evening handheld sessions before diving into Silksong.',
+        plot: 'Forge your own path in Hollow Knight! An epic action adventure through a vast ruined subterranean kingdom of insects and heroes.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/367520/Hollow_Knight/',
+        updatedAt: Date.now() - 3600 * 1000 * 40
+      },
+      {
+        id: 'starter-4',
+        title: "Baldur's Gate 3",
+        status: 'playing',
+        platform: 'Steam / PC',
+        genre: 'CRPG',
+        hours: '52h in',
+        resumeNotes: 'Currently in Act 2 at Last Light Inn. Keep Shadowheart in the party before entering the Gauntlet of Shar.',
+        plot: 'Gather your party and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power.',
+        cover: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg',
+        steamUrl: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+        updatedAt: Date.now() - 3600 * 1000 * 60
+      }
+    ];
+
+    // =========================================================
+    // STATE VARIABLES
+    // =========================================================
+    let games = [];
+    let activeFilter = 'all';
+    let liveSearchTimeout = null;
+    let currentSearchResults = [];
+    let toastTimer = null;
+
+    // =========================================================
+    // INITIALIZATION
+    // =========================================================
+    function initApp() {
+      loadGamesFromStorage();
+      renderQuickPresetChips();
+      renderFilterTabs();
+      renderGames();
+      const savedRawgKey = localStorage.getItem(RAWG_KEY_STORAGE) || '';
+      const rawgInput = document.getElementById('rawgApiKeyInput');
+      if (rawgInput) rawgInput.value = savedRawgKey;
+      lucide.createIcons();
+    }
+
+    function loadGamesFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          games = [...STARTER_GAMES];
+          saveGamesToStorage();
+        } else {
+          games = JSON.parse(raw);
+        }
+      } catch (e) {
+        games = [...STARTER_GAMES];
+      }
+    }
+
+    function saveGamesToStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
+      updateStats();
+    }
+
+    function updateStats() {
+      const onHoldCount = games.filter(g => g.status === 'on_hold').length;
+      const backlogCount = games.filter(g => g.status === 'backlog').length;
+      const playingCount = games.filter(g => g.status === 'playing').length;
+
+      document.getElementById('statOnHold').textContent = onHoldCount;
+      document.getElementById('statBacklog').textContent = backlogCount;
+      document.getElementById('statPlaying').textContent = playingCount;
+      document.getElementById('headerSubtitle').textContent = `${games.length} titles logged • ${onHoldCount} ready to revisit`;
+    }
+
+    // =========================================================
+    // CUSTOM DYNAMIC ISLAND TOAST & CONFIRMATION DIALOG
+    // =========================================================
+    function showToast(message, colorClass = 'bg-violet-400') {
+      const banner = document.getElementById('toastBanner');
+      const msgEl = document.getElementById('toastMessage');
+      const dotEl = document.getElementById('toastDot');
+
+      msgEl.textContent = message;
+      dotEl.className = `w-2 h-2 rounded-full animate-pulse ${colorClass}`;
+
+      banner.classList.remove('opacity-0', '-translate-y-8');
+      banner.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.remove('opacity-100', 'translate-y-0');
+        banner.classList.add('opacity-0', '-translate-y-8');
+      }, 2500);
+    }
+
+    function openConfirmModal(title, message, onConfirm) {
+      document.getElementById('confirmTitle').textContent = title;
+      document.getElementById('confirmMessage').textContent = message;
+      const btn = document.getElementById('confirmActionBtn');
+      btn.onclick = () => {
+        closeConfirmModal();
+        onConfirm();
+      };
+      document.getElementById('confirmModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirmModal').classList.add('hidden');
+    }
+
+    // =========================================================
+    // LIVE GAME SEARCH ENGINE (STEAM + WIKIPEDIA + RAWG + CATALOG)
+    // =========================================================
+    function renderQuickPresetChips() {
+      const container = document.getElementById('quickPresetChips');
+      if (!container) return;
+      container.innerHTML = CURATED_GAMES_DB.slice(0, 7).map((item, idx) => `
+        <button
+          type="button"
+          onclick="selectCuratedPreset(${idx})"
+          class="tap-bounce shrink-0 px-2.5 py-1 rounded-lg bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-[11px] font-medium text-zinc-300 flex items-center gap-1"
+        >
+          <span>${escapeHtml(item.title)}</span>
+        </button>
+      `).join('');
+    }
+
+    function selectCuratedPreset(index) {
+      const item = CURATED_GAMES_DB[index];
+      if (!item) return;
+      applySelectedSearchResult({
+        title: item.title,
+        cover: item.cover,
+        steamUrl: item.steamUrl,
+        genre: item.genre,
+        platform: item.platform,
+        plot: item.plot,
+        appId: item.appId,
+        source: 'Catalog'
+      });
+    }
+
+    function clearLiveGameSearch() {
+      const input = document.getElementById('liveGameSearchInput');
+      input.value = '';
+      document.getElementById('liveSearchResults').classList.add('hidden');
+      document.getElementById('liveSearchClearBtn').classList.add('hidden');
+      document.getElementById('liveSearchSpinner').classList.add('hidden');
+      document.getElementById('liveSearchStatus').textContent = 'Type any game title';
+    }
+
+    function handleLiveGameSearchInput(rawVal) {
+      const query = rawVal.trim();
+      const clearBtn = document.getElementById('liveSearchClearBtn');
+      const resultsBox = document.getElementById('liveSearchResults');
+
+      if (!query) {
+        clearLiveGameSearch();
+        return;
+      }
+
+      clearBtn.classList.remove('hidden');
+
+      // Check if user pasted a direct Steam URL or numeric Steam App ID
+      const steamIdMatch = query.match(/\/app\/(\d+)/) || query.match(/^(\d{4,8})$/);
+      if (steamIdMatch && steamIdMatch[1]) {
+        const appId = steamIdMatch[1];
+        if (liveSearchTimeout) clearTimeout(liveSearchTimeout);
+        fetchDirectSteamAppId(appId);
+        return;
+      }
+
+      if (liveSearchTimeout) clearTimeout(liveSearchTimeout);
+      liveSearchTimeout = setTimeout(() => {
+        performMultiSourceGameSearch(query);
+      }, 300);
+    }
+
+    // Resilient CORS proxy fetch helper for Steam endpoints
+    async function fetchJsonWithCorsFallback(targetUrl, timeoutMs = 4200) {
+      const proxyBuilders = [
+        url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+      ];
+
+      for (const buildProxy of proxyBuilders) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+          const res = await fetch(buildProxy(targetUrl), { signal: controller.signal });
+          clearTimeout(timer);
+          if (res.ok) {
+            return await res.json();
+          }
+        } catch (err) {
+          clearTimeout(timer);
+        }
+      }
+      throw new Error('Proxy fetch failed');
+    }
+
+    async function performMultiSourceGameSearch(query) {
+      const spinner = document.getElementById('liveSearchSpinner');
+      const clearBtn = document.getElementById('liveSearchClearBtn');
+      const statusEl = document.getElementById('liveSearchStatus');
+      const resultsBox = document.getElementById('liveSearchResults');
+
+      spinner.classList.remove('hidden');
+      clearBtn.classList.add('hidden');
+      statusEl.textContent = 'Searching games...';
+
+      const combinedResults = [];
+      const seenTitles = new Set();
+
+      // 1. Instant Local Curated Matches
+      const qLower = query.toLowerCase();
+      CURATED_GAMES_DB.forEach(item => {
+        if (item.title.toLowerCase().includes(qLower)) {
+          seenTitles.add(item.title.toLowerCase());
+          combinedResults.push({
+            title: item.title,
+            cover: item.cover,
+            steamUrl: item.steamUrl,
+            genre: item.genre,
+            platform: item.platform,
+            plot: item.plot,
+            appId: item.appId,
+            source: 'Steam'
+          });
+        }
+      });
+
+      // Render instant matches immediately if available while network finishes
+      if (combinedResults.length > 0) {
+        currentSearchResults = [...combinedResults];
+        renderLiveSearchResults(currentSearchResults);
+      }
+
+      // 2. Optional RAWG API Search (if user added a key)
+      const rawgKey = localStorage.getItem(RAWG_KEY_STORAGE);
+      if (rawgKey) {
+        try {
+          const rawgRes = await fetch(`https://api.rawg.io/api/games?key=${encodeURIComponent(rawgKey)}&search=${encodeURIComponent(query)}&page_size=5`);
+          if (rawgRes.ok) {
+            const rawgData = await rawgRes.json();
+            (rawgData.results || []).forEach(g => {
+              const key = g.name.toLowerCase();
+              if (!seenTitles.has(key)) {
+                seenTitles.add(key);
+                combinedResults.push({
+                  title: g.name,
+                  cover: g.background_image || '',
+                  steamUrl: '',
+                  genre: (g.genres || []).map(x => x.name).slice(0, 2).join(', ') || 'Video Game',
+                  platform: 'Steam / PC',
+                  plot: '',
+                  rawgSlug: g.slug,
+                  source: 'RAWG'
+                });
+              }
+            });
+          }
+        } catch (e) {
+          // Continue to Steam & Wiki
+        }
+      }
+
+      // 3. Primary Live Steam Store Search (No API key needed)
+      try {
+        const steamSearchUrl = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(query)}&l=english&cc=US`;
+        const steamData = await fetchJsonWithCorsFallback(steamSearchUrl);
+        if (steamData && Array.isArray(steamData.items)) {
+          steamData.items.slice(0, 6).forEach(item => {
+            const key = item.name.toLowerCase();
+            if (!seenTitles.has(key)) {
+              seenTitles.add(key);
+              const appId = String(item.id);
+              combinedResults.push({
+                title: item.name,
+                cover: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`,
+                steamUrl: `https://store.steampowered.com/app/${appId}/`,
+                genre: '',
+                platform: 'Steam / PC',
+                plot: '',
+                appId: appId,
+                source: 'Steam'
+              });
+            }
+          });
+        }
+      } catch (e) {
+        // Fallback handled below by Wikipedia native CORS API
+      }
+
+      // 4. Wikipedia Open Game Search (Native CORS `origin=*`, catches console exclusives & acts as universal fallback)
+      if (combinedResults.length < 4) {
+        try {
+          const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query + ' video game')}&gsrlimit=5&prop=pageimages|extracts&exintro=1&explaintext=1&exchars=260&piprop=thumbnail&pithumbsize=600&format=json&origin=*`;
+          const wikiRes = await fetch(wikiUrl);
+          if (wikiRes.ok) {
+            const wikiData = await wikiRes.json();
+            const pages = wikiData?.query?.pages ? Object.values(wikiData.query.pages) : [];
+            pages.sort((a, b) => (a.index || 99) - (b.index || 99));
+            pages.forEach(page => {
+              const cleanTitle = page.title.replace(/\s*\(video game\)\s*/i, '').trim();
+              const key = cleanTitle.toLowerCase();
+              if (!seenTitles.has(key)) {
+                seenTitles.add(key);
+                combinedResults.push({
+                  title: cleanTitle,
+                  cover: page.thumbnail?.source || `https://placehold.co/600x320/1e1b4b/c4b5fd?text=${encodeURIComponent(cleanTitle)}`,
+                  steamUrl: '',
+                  genre: 'Video Game',
+                  platform: 'Steam / PC',
+                  plot: cleanWikiExtract(page.extract || ''),
+                  wikiTitle: page.title,
+                  source: 'Wiki'
+                });
+              }
+            });
+          }
+        } catch (e) {
+          // Ignore network error
+        }
+      }
+
+      spinner.classList.add('hidden');
+      clearBtn.classList.remove('hidden');
+
+      currentSearchResults = combinedResults.slice(0, 8);
+      if (currentSearchResults.length > 0) {
+        statusEl.textContent = `${currentSearchResults.length} matches — tap to auto-fill`;
+        renderLiveSearchResults(currentSearchResults);
+      } else {
+        statusEl.textContent = 'No exact matches found';
+        resultsBox.innerHTML = `
+          <div class="p-3.5 text-center text-xs text-zinc-400">
+            No live results found for "${escapeHtml(query)}". You can still log it manually below!
+          </div>
+        `;
+        resultsBox.classList.remove('hidden');
+      }
+    }
+
+    function renderLiveSearchResults(results) {
+      const resultsBox = document.getElementById('liveSearchResults');
+      resultsBox.innerHTML = results.map((item, idx) => `
+        <button
+          type="button"
+          onclick="selectLiveSearchResult(${idx})"
+          class="w-full p-2.5 text-left hover:bg-violet-500/10 active:bg-violet-500/20 flex items-center gap-3 transition-colors"
+        >
+          <div class="w-16 h-10 rounded-lg bg-zinc-900 overflow-hidden shrink-0 border border-white/10 relative">
+            <img
+              src="${escapeHtml(item.cover)}"
+              alt="${escapeHtml(item.title)}"
+              onerror="this.src='https://placehold.co/320x180/1e1b4b/a78bfa?text=Game'"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5">
+              <p class="text-xs font-bold text-white truncate">${escapeHtml(item.title)}</p>
+              <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold uppercase ${
+                item.source === 'Steam'
+                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
+                  : 'bg-violet-500/20 text-violet-300 border border-violet-500/30'
+              }">${escapeHtml(item.source)}</span>
+            </div>
+            <p class="text-[11px] text-zinc-400 truncate mt-0.5">
+              ${item.plot ? escapeHtml(item.plot) : (item.genre ? escapeHtml(item.genre) : 'Tap to fetch cover art & plot synopsis')}
+            </p>
+          </div>
+          <i data-lucide="arrow-down-left" class="w-4 h-4 text-violet-400 shrink-0"></i>
+        </button>
+      `).join('');
+      resultsBox.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function selectLiveSearchResult(index) {
+      const item = currentSearchResults[index];
+      if (!item) return;
+      applySelectedSearchResult(item);
+    }
+
+    async function applySelectedSearchResult(item) {
+      // Populate primary fields immediately
+      document.getElementById('gameTitle').value = item.title || '';
+      document.getElementById('gameCover').value = item.cover || '';
+      updateCoverPreview(item.cover || '');
+
+      if (item.steamUrl) {
+        document.getElementById('gameSteamUrl').value = item.steamUrl;
+      }
+      if (item.genre) {
+        document.getElementById('gameGenre').value = item.genre;
+      }
+      if (item.platform) {
+        document.getElementById('gamePlatform').value = item.platform;
+      }
+
+      // Hide results dropdown
+      document.getElementById('liveSearchResults').classList.add('hidden');
+      document.getElementById('liveSearchStatus').textContent = 'Metadata applied!';
+
+      // If plot & genre are already known from Curated DB or Wiki extract, set them immediately
+      if (item.plot) {
+        document.getElementById('gamePlot').value = item.plot;
+        showToast(`Auto-filled "${item.title}"`, 'bg-emerald-400');
+        return;
+      }
+
+      // Otherwise fetch full Plot Synopsis & Genre asynchronously from Steam appdetails + Wikipedia CORS fallback
+      const badge = document.getElementById('metadataFetchBadge');
+      const plotInput = document.getElementById('gamePlot');
+      badge.classList.remove('hidden');
+      plotInput.placeholder = 'Fetching official plot synopsis...';
+
+      let fetchedPlot = '';
+      let fetchedGenre = item.genre || '';
+
+      // Try Steam appdetails if appId exists
+      if (item.appId) {
+        try {
+          const detailsUrl = `https://store.steampowered.com/api/appdetails?appids=${item.appId}&l=english`;
+          const detailsData = await fetchJsonWithCorsFallback(detailsUrl, 4000);
+          const appObj = detailsData?.[item.appId]?.data;
+          if (appObj) {
+            if (appObj.short_description) {
+              fetchedPlot = decodeHtmlEntities(appObj.short_description);
+            }
+            if (Array.isArray(appObj.genres) && appObj.genres.length > 0) {
+              fetchedGenre = appObj.genres.map(g => g.description).slice(0, 2).join(' / ');
+            }
+          }
+        } catch (e) {
+          // Will fall back to Wikipedia below
+        }
+      }
+
+      // Fallback or enrich with Wikipedia REST / Query API (Native CORS `origin=*`)
+      if (!fetchedPlot) {
+        const wikiResult = await fetchWikipediaPlotAndGenre(item.wikiTitle || item.title);
+        if (wikiResult.plot) fetchedPlot = wikiResult.plot;
+        if (!fetchedGenre && wikiResult.genre) fetchedGenre = wikiResult.genre;
+      }
+
+      badge.classList.add('hidden');
+      plotInput.placeholder = 'Storyline summary or what drew you to this game...';
+
+      if (fetchedPlot) {
+        plotInput.value = fetchedPlot;
+      }
+      if (fetchedGenre) {
+        document.getElementById('gameGenre').value = fetchedGenre;
+      }
+
+      showToast(`Auto-filled "${item.title}"`, 'bg-emerald-400');
+    }
+
+    // Fetch plot synopsis for whatever title is typed in the Title field
+    async function fetchPlotForCurrentTitle() {
+      const title = document.getElementById('gameTitle').value.trim();
+      if (!title) {
+        showToast('Enter a Game Title first', 'bg-amber-400');
+        return;
+      }
+      showToast('Fetching plot synopsis...', 'bg-violet-400');
+      const res = await fetchWikipediaPlotAndGenre(title);
+      if (res.plot) {
+        document.getElementById('gamePlot').value = res.plot;
+        if (!document.getElementById('gameGenre').value && res.genre) {
+          document.getElementById('gameGenre').value = res.genre;
+        }
+        if (!document.getElementById('gameCover').value && res.cover) {
+          document.getElementById('gameCover').value = res.cover;
+          updateCoverPreview(res.cover);
+        }
+        showToast('Plot synopsis updated!', 'bg-emerald-400');
+      } else {
+        showToast('Could not find plot for that title', 'bg-amber-400');
+      }
+    }
+
+    async function fetchWikipediaPlotAndGenre(gameTitle) {
+      try {
+        const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(gameTitle + ' video game')}&gsrlimit=1&prop=pageimages|extracts&exintro=1&explaintext=1&exchars=380&piprop=thumbnail&pithumbsize=600&format=json&origin=*`;
+        const res = await fetch(searchUrl);
+        if (!res.ok) return { plot: '', genre: '', cover: '' };
+        const data = await res.json();
+        const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+        if (pages.length === 0) return { plot: '', genre: '', cover: '' };
+
+        const extract = cleanWikiExtract(pages[0].extract || '');
+        const cover = pages[0].thumbnail?.source || '';
+        return {
+          plot: extract,
+          genre: extractGenreFromText(extract),
+          cover
+        };
+      } catch (e) {
+        return { plot: '', genre: '', cover: '' };
+      }
+    }
+
+    async function fetchDirectSteamAppId(appId) {
+      const coverUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`;
+      const steamUrl = `https://store.steampowered.com/app/${appId}/`;
+
+      document.getElementById('gameCover').value = coverUrl;
+      document.getElementById('gameSteamUrl').value = steamUrl;
+      updateCoverPreview(coverUrl);
+      document.getElementById('liveSearchStatus').textContent = `Steam App #${appId} loaded`;
+
+      try {
+        const detailsUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&l=english`;
+        const detailsData = await fetchJsonWithCorsFallback(detailsUrl, 4000);
+        const appObj = detailsData?.[appId]?.data;
+        if (appObj) {
+          if (appObj.name) document.getElementById('gameTitle').value = appObj.name;
+          if (appObj.short_description) {
+            document.getElementById('gamePlot').value = decodeHtmlEntities(appObj.short_description);
+          }
+          if (Array.isArray(appObj.genres) && appObj.genres.length > 0) {
+            document.getElementById('gameGenre').value = appObj.genres.map(g => g.description).slice(0, 2).join(' / ');
+          }
+          showToast(`Fetched ${appObj.name}`, 'bg-emerald-400');
+          return;
+        }
+      } catch (e) {
+        // Fallback if proxy timed out
+      }
+      showToast(`Steam cover art loaded for #${appId}`, 'bg-emerald-400');
+    }
+
+    function updateCoverPreview(url) {
+      const container = document.getElementById('coverPreviewContainer');
+      const img = document.getElementById('coverPreviewImg');
+      const cleanUrl = (url || '').trim();
+      if (!cleanUrl) {
+        container.classList.add('hidden');
+        img.src = '';
+        return;
+      }
+      img.src = cleanUrl;
+      container.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function cleanWikiExtract(text) {
+      if (!text) return '';
+      return text
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function extractGenreFromText(text) {
+      if (!text) return '';
+      const genres = [
+        'action role-playing', 'role-playing', 'metroidvania', 'roguelike',
+        'action-adventure', 'first-person shooter', 'platformer', 'survival horror',
+        'strategy', 'simulation', 'fighting', 'puzzle', 'adventure'
+      ];
+      const lower = text.toLowerCase();
+      for (const g of genres) {
+        if (lower.includes(g)) {
+          return g.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        }
+      }
+      return '';
+    }
+
+    function decodeHtmlEntities(str) {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = str;
+      return txt.value;
+    }
+
+    // =========================================================
+    // FILTERING & CARD LIST RENDERING
+    // =========================================================
+    function setFilter(filterKey) {
+      activeFilter = filterKey;
+      renderFilterTabs();
+      renderGames();
+    }
+
+    function renderFilterTabs() {
+      const tabs = [
+        { key: 'all', label: 'All', count: games.length },
+        { key: 'on_hold', label: 'On Hold / Revisit', count: games.filter(g => g.status === 'on_hold').length },
+        { key: 'backlog', label: 'Backlog', count: games.filter(g => g.status === 'backlog').length },
+        { key: 'playing', label: 'Playing', count: games.filter(g => g.status === 'playing').length },
+        { key: 'completed', label: 'Completed', count: games.filter(g => g.status === 'completed').length }
+      ];
+
+      const container = document.getElementById('filterTabs');
+      container.innerHTML = tabs.map(tab => {
+        const isActive = activeFilter === tab.key;
+        return `
+          <button
+            onclick="setFilter('${tab.key}')"
+            class="tap-bounce shrink-0 px-3.5 py-2 rounded-full text-xs font-semibold flex items-center gap-1.5 border transition-all ${
+              isActive
+                ? 'bg-white text-zinc-950 border-white shadow-sm'
+                : 'bg-zinc-900/90 text-zinc-400 border-zinc-800/90 hover:text-zinc-200'
+            }"
+          >
+            <span>${tab.label}</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${
+              isActive ? 'bg-zinc-900/15 text-zinc-900 font-bold' : 'bg-zinc-800 text-zinc-400'
+            }">${tab.count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderGames() {
+      updateStats();
+      const query = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+
+      const filtered = games.filter(game => {
+        const matchesTab = activeFilter === 'all' || game.status === activeFilter;
+        const matchesSearch = !query ||
+          game.title.toLowerCase().includes(query) ||
+          (game.genre || '').toLowerCase().includes(query) ||
+          (game.platform || '').toLowerCase().includes(query) ||
+          (game.resumeNotes || '').toLowerCase().includes(query) ||
+          (game.plot || '').toLowerCase().includes(query);
+        return matchesTab && matchesSearch;
+      });
+
+      const listEl = document.getElementById('gamesList');
+      const emptyEl = document.getElementById('emptyState');
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        lucide.createIcons();
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      listEl.innerHTML = filtered.map(game => {
+        const st = STATUS_CONFIG[game.status] || STATUS_CONFIG.backlog;
+        const isOnHold = game.status === 'on_hold';
+
+        return `
+          <article
+            onclick="openDetailModal('${game.id}')"
+            class="tap-bounce group rounded-3xl bg-card/90 border ${
+              isOnHold ? 'border-amber-500/35 shadow-lg shadow-amber-500/5' : 'border-white/10'
+            } overflow-hidden cursor-pointer backdrop-blur-md"
+          >
+            <!-- Cover Banner -->
+            <div class="relative aspect-[16/8.2] w-full bg-zinc-900 overflow-hidden">
+              <img
+                src="${escapeHtml(game.cover || '')}"
+                alt="${escapeHtml(game.title)}"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <!-- Fallback Gradient Artwork -->
+              <div class="hidden absolute inset-0 bg-gradient-to-br from-violet-950 via-zinc-900 to-indigo-950 items-center justify-center">
+                <span class="text-lg font-bold text-white/30 tracking-widest uppercase">${escapeHtml(game.title.slice(0, 2))}</span>
+              </div>
+
+              <div class="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent"></div>
+
+              <!-- Top Badges -->
+              <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold border backdrop-blur-md flex items-center gap-1.5 ${st.badgeClass}">
+                  <span class="w-1.5 h-1.5 rounded-full ${st.dotClass}"></span>
+                  ${st.label}
+                </span>
+
+                <div class="flex items-center gap-1.5">
+                  ${game.hours ? `
+                    <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/65 text-zinc-200 border border-white/10 backdrop-blur-md">
+                      ${escapeHtml(game.hours)}
+                    </span>
+                  ` : ''}
+                  <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/65 text-zinc-200 border border-white/10 backdrop-blur-md">
+                    ${escapeHtml(game.platform || 'Steam / PC')}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Title Overlay -->
+              <div class="absolute bottom-2.5 left-4 right-4 flex items-end justify-between gap-2">
+                <div>
+                  ${game.genre ? `<span class="text-[11px] font-semibold text-violet-300/95 uppercase tracking-wider">${escapeHtml(game.genre)}</span>` : ''}
+                  <h2 class="text-lg font-bold text-white leading-tight drop-shadow">${escapeHtml(game.title)}</h2>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-4 pt-2.5 space-y-3">
+              ${game.resumeNotes ? `
+                <div class="p-3 rounded-2xl ${
+                  isOnHold
+                    ? 'bg-amber-500/12 border border-amber-500/30'
+                    : 'bg-zinc-900/90 border border-zinc-800/80'
+                }">
+                  <div class="flex items-center gap-1.5 text-[11px] font-semibold ${
+                    isOnHold ? 'text-amber-300' : 'text-zinc-400'
+                  } mb-1">
+                    <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                    <span>${isOnHold ? 'WHERE I LEFT OFF / TO RESUME' : 'CHECKPOINT NOTES'}</span>
+                  </div>
+                  <p class="text-xs text-zinc-200 leading-relaxed line-clamp-2">${escapeHtml(game.resumeNotes)}</p>
+                </div>
+              ` : ''}
+
+              ${game.plot ? `
+                <p class="text-xs text-zinc-400 line-clamp-2 leading-relaxed">${escapeHtml(game.plot)}</p>
+              ` : ''}
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // =========================================================
+    // DETAIL SHEET MODAL
+    // =========================================================
+    function openDetailModal(id) {
+      const game = games.find(g => g.id === id);
+      if (!game) return;
+      const st = STATUS_CONFIG[game.status] || STATUS_CONFIG.backlog;
+
+      const content = document.getElementById('detailContent');
+      content.innerHTML = `
+        <div class="relative aspect-[16/9] w-full bg-zinc-900">
+          <img
+            src="${escapeHtml(game.cover || '')}"
+            alt="${escapeHtml(game.title)}"
+            onerror="this.style.display='none'"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+          <button
+            onclick="closeDetailModal()"
+            class="tap-bounce absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 border border-white/15 backdrop-blur-md flex items-center justify-center text-white"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+          <div class="absolute bottom-3 left-5 right-5">
+            <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${st.badgeClass}">${st.label}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-zinc-900/90 text-zinc-300 border border-white/10">${escapeHtml(game.platform || 'PC')}</span>
+              ${game.genre ? `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-zinc-900/90 text-violet-300 border border-white/10">${escapeHtml(game.genre)}</span>` : ''}
+              ${game.hours ? `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-zinc-900/90 text-zinc-300 border border-white/10">${escapeHtml(game.hours)}</span>` : ''}
+            </div>
+            <h2 class="text-2xl font-bold text-white leading-tight">${escapeHtml(game.title)}</h2>
+          </div>
+        </div>
+
+        <div class="p-5 space-y-4">
+          <!-- Resume Callout -->
+          <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+                Where I Left Off &amp; Resume Plan
+              </span>
+              <button onclick="closeDetailModal(); openGameModal('${game.id}')" class="text-[11px] text-amber-400 underline">Update</button>
+            </div>
+            <p class="text-xs text-zinc-200 leading-relaxed">
+              ${game.resumeNotes ? escapeHtml(game.resumeNotes) : 'No checkpoint logged yet. Tap Edit to add where you paused or what build/quest you were on.'}
+            </p>
+          </div>
+
+          <!-- Synopsis -->
+          ${game.plot ? `
+            <div>
+              <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1">Plot &amp; Synopsis</h4>
+              <p class="text-sm text-zinc-300 leading-relaxed">${escapeHtml(game.plot)}</p>
+            </div>
+          ` : ''}
+
+          <!-- Quick Status Switcher -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2">Quick Move Status</h4>
+            <div class="grid grid-cols-2 gap-2">
+              ${['on_hold', 'playing', 'backlog', 'completed'].map(statusKey => {
+                const cfg = STATUS_CONFIG[statusKey];
+                const active = game.status === statusKey;
+                return `
+                  <button
+                    onclick="quickChangeStatus('${game.id}', '${statusKey}')"
+                    class="tap-bounce py-2.5 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center gap-1.5 ${
+                      active
+                        ? 'bg-white text-zinc-950 border-white'
+                        : 'bg-zinc-900 text-zinc-300 border-zinc-800'
+                    }"
+                  >
+                    <i data-lucide="${cfg.icon}" class="w-3.5 h-3.5"></i>
+                    <span>${cfg.shortLabel}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Steam Link + Actions -->
+          <div class="pt-2 flex flex-col gap-2.5">
+            ${game.steamUrl ? `
+              <a
+                href="${escapeHtml(game.steamUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="tap-bounce w-full py-3 rounded-2xl bg-[#1b2838] hover:bg-[#2a475e] border border-sky-400/20 text-sky-200 font-semibold text-xs flex items-center justify-center gap-2"
+              >
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                <span>Open on Steam Store</span>
+              </a>
+            ` : ''}
+
+            <div class="flex gap-2.5">
+              <button
+                onclick="closeDetailModal(); openGameModal('${game.id}')"
+                class="tap-bounce flex-1 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-200 font-semibold text-xs flex items-center justify-center gap-1.5"
+              >
+                <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                <span>Edit Details</span>
+              </button>
+              <button
+                onclick="requestDeleteGame('${game.id}')"
+                class="tap-bounce py-3 px-4 rounded-2xl bg-rose-500/10 border border-rose-500/25 text-rose-400 font-semibold text-xs flex items-center justify-center gap-1.5"
+              >
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span>Delete</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('detailModal');
+      const backdrop = document.getElementById('detailBackdrop');
+      const sheet = document.getElementById('detailSheet');
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        sheet.classList.remove('translate-y-full');
+      });
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      const backdrop = document.getElementById('detailBackdrop');
+      const sheet = document.getElementById('detailSheet');
+      backdrop.classList.add('opacity-0');
+      sheet.classList.add('translate-y-full');
+      setTimeout(() => modal.classList.add('hidden'), 300);
+    }
+
+    function quickChangeStatus(id, newStatus) {
+      const idx = games.findIndex(g => g.id === id);
+      if (idx === -1) return;
+      games[idx].status = newStatus;
+      games[idx].updatedAt = Date.now();
+      saveGamesToStorage();
+      renderFilterTabs();
+      renderGames();
+      openDetailModal(id);
+      showToast(`Moved to ${STATUS_CONFIG[newStatus].shortLabel}`, 'bg-emerald-400');
+    }
+
+    // =========================================================
+    // ADD / EDIT FORM MODAL
+    // =========================================================
+    function openGameModal(editId = null) {
+      const form = document.getElementById('gameForm');
+      form.reset();
+      clearLiveGameSearch();
+      updateCoverPreview('');
+
+      if (editId) {
+        const game = games.find(g => g.id === editId);
+        if (game) {
+          document.getElementById('formModalTitle').textContent = 'Edit Game';
+          document.getElementById('gameId').value = game.id;
+          document.getElementById('gameTitle').value = game.title || '';
+          document.getElementById('gameStatus').value = game.status || 'on_hold';
+          document.getElementById('gamePlatform').value = game.platform || 'Steam / PC';
+          document.getElementById('gameGenre').value = game.genre || '';
+          document.getElementById('gameHours').value = game.hours || '';
+          document.getElementById('gameResumeNotes').value = game.resumeNotes || '';
+          document.getElementById('gamePlot').value = game.plot || '';
+          document.getElementById('gameCover').value = game.cover || '';
+          document.getElementById('gameSteamUrl').value = game.steamUrl || '';
+          updateCoverPreview(game.cover || '');
+        }
+      } else {
+        document.getElementById('formModalTitle').textContent = 'Log Game';
+        document.getElementById('gameId').value = '';
+        document.getElementById('gameStatus').value = activeFilter !== 'all' ? activeFilter : 'on_hold';
+      }
+
+      const modal = document.getElementById('formModal');
+      const backdrop = document.getElementById('formBackdrop');
+      const sheet = document.getElementById('formSheet');
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        sheet.classList.remove('translate-y-full');
+      });
+    }
+
+    function closeGameModal() {
+      const modal = document.getElementById('formModal');
+      const backdrop = document.getElementById('formBackdrop');
+      const sheet = document.getElementById('formSheet');
+      backdrop.classList.add('opacity-0');
+      sheet.classList.add('translate-y-full');
+      setTimeout(() => modal.classList.add('hidden'), 300);
+    }
+
+    function saveGame(event) {
+      event.preventDefault();
+      const id = document.getElementById('gameId').value;
+      const entry = {
+        id: id || 'game-' + Date.now(),
+        title: document.getElementById('gameTitle').value.trim(),
+        status: document.getElementById('gameStatus').value,
+        platform: document.getElementById('gamePlatform').value,
+        genre: document.getElementById('gameGenre').value.trim(),
+        hours: document.getElementById('gameHours').value.trim(),
+        resumeNotes: document.getElementById('gameResumeNotes').value.trim(),
+        plot: document.getElementById('gamePlot').value.trim(),
+        cover: document.getElementById('gameCover').value.trim(),
+        steamUrl: document.getElementById('gameSteamUrl').value.trim(),
+        updatedAt: Date.now()
+      };
+
+      if (id) {
+        const index = games.findIndex(g => g.id === id);
+        if (index !== -1) games[index] = entry;
+        showToast(`Updated "${entry.title}"`, 'bg-emerald-400');
+      } else {
+        games.unshift(entry);
+        showToast(`Added "${entry.title}" to Vault`, 'bg-violet-400');
+      }
+
+      saveGamesToStorage();
+      renderFilterTabs();
+      renderGames();
+      closeGameModal();
+    }
+
+    function requestDeleteGame(id) {
+      const game = games.find(g => g.id === id);
+      if (!game) return;
+      openConfirmModal(
+        `Remove "${game.title}"?`,
+        'This game and its checkpoint notes will be removed from your vault.',
+        () => {
+          games = games.filter(g => g.id !== id);
+          saveGamesToStorage();
+          renderFilterTabs();
+          renderGames();
+          closeDetailModal();
+          showToast('Removed from Vault', 'bg-rose-400');
+        }
+      );
+    }
+
+    // =========================================================
+    // SEARCH & DATA BACKUP HELPERS
+    // =========================================================
+    function toggleSearch() {
+      const container = document.getElementById('searchContainer');
+      const input = document.getElementById('searchInput');
+      container.classList.toggle('hidden');
+      if (!container.classList.contains('hidden')) {
+        input.focus();
+      } else {
+        input.value = '';
+        renderGames();
+      }
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      renderGames();
+      input.focus();
+    }
+
+    function openDataModal() {
+      document.getElementById('dataModal').classList.remove('hidden');
+    }
+
+    function closeDataModal() {
+      document.getElementById('dataModal').classList.add('hidden');
+    }
+
+    function saveRawgApiKey() {
+      const key = document.getElementById('rawgApiKeyInput').value.trim();
+      if (key) {
+        localStorage.setItem(RAWG_KEY_STORAGE, key);
+        showToast('RAWG API Key saved!', 'bg-emerald-400');
+      } else {
+        localStorage.removeItem(RAWG_KEY_STORAGE);
+        showToast('RAWG API Key cleared', 'bg-zinc-400');
+      }
+    }
+
+    function exportVaultJson() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(games, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', dataStr);
+      a.setAttribute('download', `playvault-backup-${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('Backup JSON exported', 'bg-emerald-400');
+    }
+
+    function importVaultJson(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            games = imported;
+            saveGamesToStorage();
+            renderFilterTabs();
+            renderGames();
+            closeDataModal();
+            showToast(`Imported ${imported.length} games!`, 'bg-emerald-400');
+          } else {
+            showToast('Invalid backup JSON format', 'bg-rose-400');
+          }
+        } catch (err) {
+          showToast('Could not parse backup file', 'bg-rose-400');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function requestResetStarterData() {
+      openConfirmModal(
+        'Reset to Starter Library?',
+        'This will replace your current list with the 4 starter demo games.',
+        () => {
+          games = [...STARTER_GAMES];
+          saveGamesToStorage();
+          renderFilterTabs();
+          renderGames();
+          closeDataModal();
+          showToast('Starter library restored', 'bg-violet-400');
+        }
+      );
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
